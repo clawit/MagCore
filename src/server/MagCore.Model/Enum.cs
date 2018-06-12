@@ -11,6 +11,14 @@ namespace MagCore.Model
         Occupied
     }
 
+    public enum CellType
+    {
+        NULL,   
+        Empty,  
+        Base,
+        Stone,
+    }
+
     public enum GameState
     {
         Wait,

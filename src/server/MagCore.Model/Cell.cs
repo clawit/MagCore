@@ -17,6 +17,8 @@ namespace MagCore.Model
 
         public string Key => Position.ToString();
 
+        public CellType Type { get; set; }
+
         public CellState State { get; set; }
 
         public Guid Owner { get; set; }
