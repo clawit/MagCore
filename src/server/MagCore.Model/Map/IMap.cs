@@ -7,6 +7,8 @@ namespace MagCore.Model.Map
 {
     public interface IMap
     {
+        string Name { get; set; }
+
         Size Size { get; set; }
 
         string MapFile { get; set; }
@@ -20,5 +22,9 @@ namespace MagCore.Model.Map
         int Direction { get; }
 
         void Load();
+
+        bool Check();
+
+        Cell Locate(Position pos);
     }
 }

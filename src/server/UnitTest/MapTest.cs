@@ -11,10 +11,8 @@ namespace UnitTest
         [TestMethod]
         public void TestRectMapLoad()
         {
-            var map = new RectMap(@"E:\github\MagCore\src\server\MagCore.Server\Maps\RectSmall.map");
+            var map = MapFactory.Create(@"E:\github\MagCore\src\server\MagCore.Server\Maps\RectSmall.map");
             Assert.IsNotNull(map);
-
-            map.Load();
             Assert.AreEqual(map.Size.H, 10);
             Assert.AreEqual(map.Size.W, 10);
 

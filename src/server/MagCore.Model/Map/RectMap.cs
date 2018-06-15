@@ -1,88 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.IO;
-using MagCore.Model.Exceptions;
 
 namespace MagCore.Model.Map
 {
-    public class RectMap : IMap
+    public class RectMap : Map
     {
-        public RectMap(string file)
+        public RectMap(string file) : base(file)
         {
-            MapFile = file;
+
         }
 
-        public Size Size { get; set; } = new Size();
-
-        public string MapFile { get; set; }
-
-        public List<Row> Rows { get; } = new List<Row>();
-
-        private int _edge = 0;
-        public int Edge => _edge;
-
-        private bool _shift = false;
-        public bool Shift => _shift;
-
-        private int _direction = 0;
-        public int Direction => _direction;
-
-        public void Load()
+        public override bool Check()
         {
-            if (File.Exists(MapFile))
+            if (Edge != 4 && Shift != false && Direction != 0)
             {
-                var lines = File.ReadAllLines(MapFile);
-                if (lines != null && lines.Length > 3)
-                {
-                    LoadInternal(lines);
-                }
+                return false;
             }
             else
-                throw new FileNotFoundException("Map file not found.", MapFile);
+                return base.Check();
         }
 
-        private void LoadInternal(string[] lines)
+        public override Cell Locate(Position pos)
         {
-            //read map attribute content
-            var sEdge = lines[0].Replace(" ", string.Empty).Replace("E=", string.Empty);
-            var sShift = lines[1].Replace(" ", string.Empty).Replace("S=", string.Empty);
-            var sDirection = lines[2].Replace(" ", string.Empty).Replace("D=", string.Empty);
-            //try parse the data 
-            if (Int32.TryParse(sEdge, out _edge)
-                && Int32.TryParse(sDirection, out _direction))
+            Cell cell = null;
+            if (pos.X >= 0 && pos.Y >= 0 
+                && this.Rows.Count >= pos.Y
+                && this.Rows[pos.Y].Cells.Count >= pos.X)
             {
-                _shift = sShift == "0" ? false : true;
-                //check illegal
-                if (_edge != 4 || _shift != false || _direction != 0 )
-                    throw new WrongFormatException(new Exception("Error map data."));
-
-                //set map data & size
-                int width = 0;
-                int height = lines.Length - 3;
-                for (int i = 3; i < lines.Length; i++)
-                {
-                    Row row = new Row(i - 3, lines[i].Trim().Length);
-                    var line = lines[i].Trim();
-                    width = width < line.Length ? line.Length : width;
-                    for (int j = 0; j < line.Length; j++)
-                    {
-                        if (Enum.TryParse<CellType>(line[j].ToString(), out var cell))
-                        {
-                            row.Cells[j].Type = cell;
-                        }
-                        else
-                            throw new WrongFormatException(new Exception("Error map data."));
-                    }
-                    Rows.Add(row);
-                }
-
-                Size.H = height;
-                Size.W = width;
+                cell = this.Rows[pos.Y].Cells[pos.X];
             }
-            else
-                throw new WrongFormatException(new Exception("Error map data."));
-
+            
+            return cell;
         }
     }
 }

@@ -19,10 +19,33 @@ namespace MagCore.Model
         Stone,
     }
 
+    public enum Action
+    {
+        Create,
+        Join,
+        Start,
+        Attack
+    }
+
     public enum GameState
     {
         Wait,
         Playing,
-        Done
+        Done,
+        Recycling
+    }
+
+    public enum PlayerState
+    {
+        Leisure,
+        Playing
+    }
+
+    public enum PlayerColor
+    {
+        Red,
+        Yellow,
+        Green,
+        Blue,
     }
 }

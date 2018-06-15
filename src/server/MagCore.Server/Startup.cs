@@ -35,6 +35,8 @@ namespace MagCore.Server
             }
 
             app.UseMvc();
+
+            MagCore.Core.Server.Start("Maps");
         }
     }
 }
