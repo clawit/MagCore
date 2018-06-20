@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MagCore.Model\MagCore.Model.csproj" />
+    <ProjectReference Include="..\MagCore.Monitor\MagCore.Monitor.csproj" />
   </ItemGroup>
 
 </Project>

@@ -43,6 +43,7 @@ namespace MagCore.Monitor
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            GameListLoader.LoadContent(this.Content);
         }
 
         /// <summary>
@@ -68,11 +69,10 @@ namespace MagCore.Monitor
             switch (Global.RunState)
             {
                 case RunState.Init:
-                    
+                    GameListLoader.Update();
                     break;
                 case RunState.Run:
-                    break;
-                case RunState.Pause:
+                    GameLoader.Update();
                     break;
                 default:
                     break;
@@ -95,17 +95,14 @@ namespace MagCore.Monitor
             switch (Global.RunState)
             {
                 case RunState.Init:
+                    GameListLoader.Draw(spriteBatch);
                     break;
                 case RunState.Run:
-                    break;
-                case RunState.Pause:
+                    GameLoader.Draw(spriteBatch);
                     break;
                 default:
                     break;
             }
-
-
-
 
             base.Draw(gameTime);
         }

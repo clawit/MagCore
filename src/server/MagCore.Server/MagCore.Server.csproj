@@ -22,4 +22,10 @@
     <ProjectReference Include="..\MagCore.Core\MagCore.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Maps\RectSmall.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

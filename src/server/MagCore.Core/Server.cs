@@ -39,16 +39,16 @@ namespace MagCore.Core
                 return null;
         }
 
-        public static string[] GameList()
+        public static Model.Game[] GameList()
         {
             lock (_games)
             {
-                List<string> games = new List<string>();
+                List<Model.Game> games = new List<Model.Game>();
                 foreach (Game game in _games.Values)
                 {
                     if (game.State == GameState.Wait)
                     {
-                        games.Add(game.Id);
+                        games.Add(new Model.Game(game.Id, game.Map, (int)game.State));
                     }
                 }
 

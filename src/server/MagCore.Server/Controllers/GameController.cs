@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MagCore.Model;
 using Microsoft.AspNetCore.Mvc;
 using SystemCommonLibrary.Json;
 
@@ -12,7 +13,7 @@ namespace MagCore.Server.Controllers
     {
         // GET api/game
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Game> Get()
         {
             return Core.Server.GameList();
         }

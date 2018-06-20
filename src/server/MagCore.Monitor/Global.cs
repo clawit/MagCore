@@ -9,5 +9,7 @@ namespace MagCore.Monitor
     public static class Global
     {
         public static RunState RunState { get; set; } = RunState.Init;
+
+
     }
 }

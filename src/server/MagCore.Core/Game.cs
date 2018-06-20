@@ -14,6 +14,7 @@ namespace MagCore.Core
     {
         public string Id { get; } = Guid.NewGuid().ToString("N");
         private IMap _map { get; set; }
+        public string Map => _map.Name;
 
         private GameState _state;
         public GameState State { get { return _state; } }

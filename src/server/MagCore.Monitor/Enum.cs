@@ -10,6 +10,5 @@ namespace MagCore.Monitor
     {
         Init,
         Run,
-        Pause,
     }
 }
