@@ -99,10 +99,10 @@ namespace MagCore.Model.Map
 
         public string ToJson()
         {
-            string map = "{{\"Edge\":{0}, \"Shift\":{1}, \"Direction\":{2}, \"Cells\":[{3}]}}";
-            string cells = string.Join(",", _data);
+            string map = "{{\"Edge\":{0}, \"Shift\":{1}, \"Direction\":{2}, \"Rows\":[{3}]}}";
+            string rows = string.Join(",", _data);
 
-            map = string.Format(map, Edge, Shift, Direction, cells);
+            map = string.Format(map, Edge, Convert.ToInt32(Shift), Direction, rows);
             return map;
         }
     }

@@ -52,6 +52,11 @@ namespace MagCore.Monitor.Modules
                 _map = MapLoaderFactory.CreateLoader(map);
                 _map.LoadContent(Global.Content);
 
+                string json = ApiReq.CreateReq()
+                                .AddMethod("api/map/" + map, "get")
+                                .GetResult();
+                _map.SetMapData(DynamicJson.Parse(json));
+
                 Global.RunState = RunState.Run;
             }
         }

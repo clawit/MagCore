@@ -10,6 +10,7 @@ namespace MagCore.Monitor.Modules.Map
 {
     public interface IMapLoader
     {
+        void SetMapData(dynamic data);
         void LoadContent(ContentManager content);
         void Draw(SpriteBatch sb);
     }
