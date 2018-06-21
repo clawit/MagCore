@@ -12,11 +12,11 @@ namespace MagCore.Monitor.Modules
         public static void Update()
         {
             var state = Keyboard.GetState();
+            var keys = state.GetPressedKeys();
 
             switch (Global.RunState)
             {
                 case RunState.Init:
-                    var keys = state.GetPressedKeys();
                     if (keys.Length > 0)
                     {
                         var key = keys[0];
@@ -29,6 +29,15 @@ namespace MagCore.Monitor.Modules
                     }
                     break;
                 case RunState.Run:
+                    if (keys.Length > 0)
+                    {
+                        var key = keys[0];
+                        if (key == Keys.Escape)
+                        {
+                            GameLoader.Unload();
+                        }
+
+                    }
                     break;
                 default:
                     break;

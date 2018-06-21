@@ -12,7 +12,7 @@ namespace UnitTest
         [TestMethod]
         public void GameListLoaderTest()
         {
-            GameListLoader.Req();
+            GameListLoader.Update();
         }
     }
 }

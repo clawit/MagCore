@@ -28,6 +28,7 @@ namespace MagCore.Core
 
         public static string NewGame(string map)
         {
+            map = map.Trim().ToLower();
             if (_maps.ContainsKey(map))
             {
                 var game = new Game(_maps[map] as IMap);
@@ -80,11 +81,23 @@ namespace MagCore.Core
             }
         }
 
+        public static bool StartGame(string id)
+        {
+            var game = Game(id);
+            if (game != null)
+                return game.Start();
+            else
+                return false;
+        }
+
         public static Game Game(string id)
         {
             lock (_games)
             {
-                return _games[id] as Game;
+                if (_games.ContainsKey(id))
+                    return _games[id] as Game;
+                else
+                    return null;
             }
         }
 
@@ -96,9 +109,18 @@ namespace MagCore.Core
                 foreach (var file in files)
                 {
                     var map = MapFactory.Create(file);
-                    _maps.Add(map.Name, map);
+                    _maps.Add(map.Name.Trim().ToLower(), map);
                 }
             }
+        }
+
+        public static IMap GetMap(string name)
+        {
+            name = name.Trim().ToLower();
+            if (_maps.ContainsKey(name))
+                return _maps[name] as IMap;
+            else
+                return null;
         }
     }
 }

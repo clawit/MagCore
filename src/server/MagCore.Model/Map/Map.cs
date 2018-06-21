@@ -44,6 +44,7 @@ namespace MagCore.Model.Map
             else
                 throw new FileNotFoundException("Map file not found.", MapFile);
         }
+        private List<string> _data = new List<string>();
 
         private void LoadInternal(string[] lines)
         {
@@ -64,6 +65,7 @@ namespace MagCore.Model.Map
                 {
                     Row row = new Row(i - 3, lines[i].Trim().Length);
                     var line = lines[i].Trim();
+                    _data.Add( "\"" + line + "\"");    //additional use for map API
                     width = width < line.Length ? line.Length : width;
                     for (int j = 0; j < line.Length; j++)
                     {
@@ -93,6 +95,15 @@ namespace MagCore.Model.Map
         public virtual Cell Locate(Position pos)
         {
             throw new NotImplementedException();
+        }
+
+        public string ToJson()
+        {
+            string map = "{{\"Edge\":{0}, \"Shift\":{1}, \"Direction\":{2}, \"Cells\":[{3}]}}";
+            string cells = string.Join(",", _data);
+
+            map = string.Format(map, Edge, Shift, Direction, cells);
+            return map;
         }
     }
 }

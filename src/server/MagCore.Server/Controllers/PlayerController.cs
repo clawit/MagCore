@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using MagCore.Model;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +14,15 @@ namespace MagCore.Server.Controllers
     {
         // POST api/player
         [HttpPost]
-        public string Post([FromBody]dynamic json)
+        public ContentResult Post([FromBody]dynamic json)
         {
             var name = json.Name.ToString().Trim();
             PlayerColor color = (PlayerColor)json.Color;
-            return Core.Players.NewPlayer(name, color);
+            var player = Core.Players.NewPlayer(name, color);
+            if (player != null)
+                return new ContentResult() { StatusCode = (int)HttpStatusCode.OK, Content = player };
+            else
+                return new ContentResult() { StatusCode = (int)HttpStatusCode.Conflict };
         }
     }
 }

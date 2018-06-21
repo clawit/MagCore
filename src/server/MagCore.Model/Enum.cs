@@ -21,9 +21,6 @@ namespace MagCore.Model
 
     public enum Action
     {
-        Create,
-        Join,
-        Start,
         Attack
     }
 

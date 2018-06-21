@@ -15,11 +15,12 @@ namespace MagCore.Core
         {
             lock (All)
             {
-                if (All.Values.Any(p => p.Name == name))
+                if (All.Values.Any(p => p.Name == name)
+                    || All.Values.Any(p => p.Color == color))
                     return null;
                 else
                 {
-                    var player = new Player(name, color);
+                    var player = new Player(name, All.Count + 1, color);
                     Players.All.TryAdd(player.Id, player);
                     return player.ToJson();
                 }

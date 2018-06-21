@@ -34,9 +34,12 @@ namespace MagCore.Core
                 if (Players.Count > 0)
                 {
                     List<string> sPlayers = new List<string>(Players.Count); 
-                    foreach (string playerId in Players.Keys)
+                    foreach (Player player in Players.Values)
                     {
-                        sPlayers.Add("\"" + playerId + "\"");
+                        //sPlayers.Add("\"" + player.Index + "\"");
+                        string single = "{{\"Index\":{0}, \"Color\":{1}, \"Name\":\"{2}\"}}";
+                        single = string.Format(single, player.Index, (int)player.Color, player.Name);
+                        sPlayers.Add(single);
                     }
                     players = string.Join(",", sPlayers);
                 }
@@ -63,11 +66,6 @@ namespace MagCore.Core
                     {
                         switch (cmd.Action)
                         {
-                            case Model.Action.Join:
-                                break;
-                            case Model.Action.Start:
-                                _state = GameState.Playing;
-                                break;
                             case Model.Action.Attack:
                                 ProcessAttack(cmd, map);
                                 break;
@@ -96,6 +94,17 @@ namespace MagCore.Core
         {
             player.State = PlayerState.Playing;
             this.Players.Add(player.Id, player);
+        }
+
+        public bool Start()
+        {
+            if (this.Players.Count > 0)
+            {
+                _state = GameState.Playing;
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

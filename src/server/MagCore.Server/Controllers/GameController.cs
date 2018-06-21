@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using MagCore.Model;
 using Microsoft.AspNetCore.Mvc;
@@ -22,23 +24,45 @@ namespace MagCore.Server.Controllers
         [HttpGet("{id}")]
         public string Get(string id)
         {
-            return Core.Server.Game(id).ToJson();
+            var game = Core.Server.Game(id);
+            if (game == null)
+                return "{}";
+            else
+                return game.ToJson();
         }
 
-        // POST api/game
+        // POST api/game - New game
         [HttpPost]
-        public string Post([FromBody]dynamic json)
+        public ContentResult Post([FromBody]dynamic json)
         {
             var map = json.Map.ToString();
-            return Core.Server.NewGame(map);
+            var game = Core.Server.NewGame(map);
+            if (!string.IsNullOrEmpty(game))
+                return new ContentResult() { StatusCode = (int)HttpStatusCode.OK, Content = game };
+            else
+                return new ContentResult() { StatusCode = (int)HttpStatusCode.BadRequest };
         }
 
-        [HttpPut]
-        public void Put([FromBody]dynamic json)
+        // PATCH api/game - Join game
+        [HttpPatch]
+        public ContentResult Patch([FromBody]dynamic json)
         {
             var game = json.Game.ToString();
             var player = json.Player.ToString();
-            Core.Server.Join(game, player);
+            if (Core.Server.Join(game, player))
+                return new ContentResult() { StatusCode = (int)HttpStatusCode.OK };
+            else
+                return new ContentResult() { StatusCode = (int)HttpStatusCode.Forbidden };
+        }
+
+        // Put api/game/5b4512fb673f4a638fe2907b7483c0ab - Start game
+        [HttpPut("{id}")]
+        public ContentResult Put(string id)
+        {
+            if (Core.Server.StartGame(id))
+                return new ContentResult() { StatusCode = (int)HttpStatusCode.OK };
+            else
+                return new ContentResult() { StatusCode = (int)HttpStatusCode.Forbidden };
         }
     }
 }

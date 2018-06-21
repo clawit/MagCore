@@ -29,6 +29,7 @@ namespace MagCore.Monitor
         {
             // TODO: Add your initialization logic here
             MouseHandler.ShowMouse(this);
+            Global.Content = this.Content;
 
             base.Initialize();
         }
@@ -62,8 +63,8 @@ namespace MagCore.Monitor
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            //    Exit();
 
             // TODO: Add your update logic here
             switch (Global.RunState)

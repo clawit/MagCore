@@ -50,6 +50,9 @@
     <Compile Include="Modules\GameListLoader.cs" />
     <Compile Include="Modules\GameLoader.cs" />
     <Compile Include="Modules\KeyboardHandler.cs" />
+    <Compile Include="Modules\Map\IMapLoader.cs" />
+    <Compile Include="Modules\Map\MapLoaderFactory.cs" />
+    <Compile Include="Modules\Map\RectMapLoader.cs" />
     <Compile Include="Modules\MouseHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

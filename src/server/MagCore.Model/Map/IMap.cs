@@ -26,5 +26,7 @@ namespace MagCore.Model.Map
         bool Check();
 
         Cell Locate(Position pos);
+
+        string ToJson();
     }
 }

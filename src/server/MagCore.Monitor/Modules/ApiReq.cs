@@ -46,9 +46,9 @@ namespace MagCore.Monitor.Modules
         public static string GetResult(this Task<HttpResponseMessage> response)
         {
             var res = response.Result.EnsureSuccessStatusCode();
-            var contentType = res.Content.Headers.ContentType;
-            if (string.IsNullOrEmpty(contentType.CharSet))
-                contentType.CharSet = "GBK";
+            //var contentType = res.Content.Headers.ContentType;
+            //if (string.IsNullOrEmpty(contentType.CharSet))
+            //    contentType.CharSet = "GBK";
 
             return res.Content.ReadAsStringAsync().Result;
         }
