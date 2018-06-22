@@ -51,7 +51,7 @@ namespace MagCore.Core
         public Game(IMap map)
         {
             _state = GameState.Wait;
-            _map = map;
+            _map = map;     //TODO: clone a new one?
 
             Task.Factory.StartNew(() => {
                 ThreadId = Thread.CurrentThread.ManagedThreadId;
@@ -94,6 +94,23 @@ namespace MagCore.Core
         {
             player.State = PlayerState.Playing;
             this.Players.Add(player.Id, player);
+
+            //alloc base
+            while (true)
+            {
+                Random rnd = new Random(DateTime.Now.Millisecond);
+                int y = rnd.Next(0, _map.Rows.Count - 1);
+                int x = rnd.Next(0, _map.Rows[y].Count - 1);
+                if (_map.Rows[y].Cells[x].Type == CellType.Cell)
+                {
+                    _map.Rows[y].Cells[x].Type = CellType.Base;
+                    _map.Rows[y].Cells[x].State = CellState.Occupied;
+                    _map.Rows[y].Cells[x].OccupiedTime = DateTime.MinValue;
+                    _map.Rows[y].Cells[x].Owner = player.Id;
+                }
+
+                Thread.Sleep(100);
+            }
         }
 
         public bool Start()

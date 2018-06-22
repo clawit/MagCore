@@ -13,10 +13,6 @@ namespace MagCore.Monitor.Modules
             Index = index;
         }
         public string Name { get; set; }
-        
-        public string Id { get; } = Guid.NewGuid().ToString("N");
-
-        public string Token { get; set; } = Guid.NewGuid().ToString("N");
 
         public int Energy { get; set; } = 0;
 
