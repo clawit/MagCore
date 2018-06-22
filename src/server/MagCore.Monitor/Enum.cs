@@ -11,4 +11,18 @@ namespace MagCore.Monitor
         Init,
         Run,
     }
+
+    public enum PlayerColor
+    {
+        Banana = 0,
+        Cherry = 1,
+        Grapes = 2,
+        GreenMelon = 3,
+        Lemon = 4,
+        Mulberry = 5,
+        Pear = 6,
+        Pineapple = 7,
+        Radish = 8,
+        Watermelon = 9,
+    }
 }

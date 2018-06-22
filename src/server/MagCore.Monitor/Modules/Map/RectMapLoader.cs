@@ -11,11 +11,13 @@ namespace MagCore.Monitor.Modules.Map
 {
     public class RectMapLoader : IMapLoader
     {
-        private Texture2D _bgCell = null;
+        private static Texture2D _bgRect = null;
+        private static Texture2D _bgBase = null;
+        private static Texture2D _bgEmpty = null;
 
         private List<Row> Rows = new List<Row>();
 
-        private Color _color = new Color(136, 136, 136, 0.75f);
+        private Color _color = Color.White;
 
         private Position _origin = new Position(0, 0);
 
@@ -40,13 +42,20 @@ namespace MagCore.Monitor.Modules.Map
                 count++;
             }
 
-            _origin.X = (800 - (Rows[0].Count * 32)) / 2;
-            _origin.Y = (500 - (Rows.Count * 32)) / 2;
+            _origin.X = (800 - (Rows[0].Count * 16)) / 2;
+            _origin.Y = (500 - (Rows.Count * 16)) / 2;
         }
 
         public void LoadContent(ContentManager content)
         {
-            _bgCell = content.Load<Texture2D>("Images/Rect");
+            if (_bgRect == null)
+                _bgRect = content.Load<Texture2D>("Images/Rect");
+            if (_bgEmpty == null)
+                _bgEmpty = content.Load<Texture2D>("Images/Empty");
+            if (_bgBase == null)
+                _bgBase = content.Load<Texture2D>("Images/Base");
+
+            Cell.LoadContent(content);
         }
 
         public void Draw(SpriteBatch sb)
@@ -62,10 +71,31 @@ namespace MagCore.Monitor.Modules.Map
                 for (int j = 0; j < row.Count; j++)
                 {
                     Cell cell = row.Cells[j];
-                    sb.Draw(_bgCell, new Vector2(j * 30 + _origin.X, i * 30 + _origin.Y), _color);
+                    Rectangle rect = new Rectangle(j * 15 + _origin.X, i * 15 + _origin.Y, 16, 16);
+                    switch (cell.Type)
+                    {
+                        case 0:
+                            //Null
+                            //sb.Draw(_bgEmpty, rect, Color.White);
+                            break;
+                        case 1:
+                            //Cell
+                            sb.Draw(_bgRect, rect, Color.White);
+                            if (GameLoader.Players != null && GameLoader.Players.Count > 0)
+                                cell.Draw(sb, rect, GameLoader.Players[cell.OwnerIndex].Color);
+                            break;
+                        case 2:
+                            //Base
+                            sb.Draw(_bgBase, rect, Color.White);
+                            if (GameLoader.Players != null && GameLoader.Players.Count > 0)
+                                cell.Draw(sb, rect, GameLoader.Players[cell.OwnerIndex].Color);
+                            break;
+                        default:
+                            continue;
+                    }
                 }
             }
         }
-
+        
     }
 }

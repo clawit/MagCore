@@ -15,6 +15,10 @@ namespace MagCore.Monitor.Modules
 
         private static dynamic _game = null;
 
+        private static int _state = -1;
+
+        internal static Dictionary<int, Player> Players = null;
+
         private static IMapLoader _map = null;
         public static void Update()
         {
@@ -28,6 +32,8 @@ namespace MagCore.Monitor.Modules
                         string json = ApiReq.CreateReq()
                                         .AddMethod(url, "get")
                                         .GetResult();
+                        dynamic data = DynamicJson.Parse(json);
+                        LoadGameData(data);
 
                         Thread.Sleep(1000);
                     }
@@ -40,6 +46,20 @@ namespace MagCore.Monitor.Modules
             }
 
             KeyboardHandler.Update();
+        }
+
+        private static void LoadGameData(dynamic data)
+        {
+            if (data.Id.ToString() != _game.id.ToString())
+            {
+                //init players when the game switched
+                Players = new Dictionary<int, Player>();
+                foreach (var item in data.Players)
+                {
+                    Player player = new Player(item.Name.ToString(), Convert.ToInt32(item.Index), Convert.ToInt32(item.Color));
+                    Players.Add(player.Index, player);
+                }
+            }
         }
 
         internal static void Load(int index)
