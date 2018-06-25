@@ -66,12 +66,12 @@ namespace MagCore.Monitor.Modules.Map
                 for (int j = 0; j < row.Count; j++)
                 {
                     Cell cell = row.Cells[j];
-                    Rectangle rect = new Rectangle(j * 15 + _origin.X, i * 15 + _origin.Y, 16, 16);
+                    Rectangle rect = new Rectangle(j * 16 + _origin.X, i * 16 + _origin.Y, 16, 16);
                     switch (cell.Type)
                     {
                         case 0:
                             //Null
-                            //sb.Draw(_bgEmpty, rect, Color.White);
+                            sb.Draw(_bgEmpty, rect, Color.White);
                             break;
                         case 1:
                             //Cell

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MagCore.Model.Map;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,12 +7,12 @@ namespace MagCore.Model
 {
     public class Row
     {
-        public Row(int row, int count)
+        public Row(IMap map, int row, int count)
         {
             Cells = new List<Cell>(count);
             for (int i = 0; i < count; i++)
             {
-                Cells.Add(new Cell(i, row));
+                Cells.Add(new Cell(map, i, row));
             }
         }
 

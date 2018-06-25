@@ -90,11 +90,17 @@ namespace MagCore.Core
             var player = Core.Players.Get(cmd.Sender);
             int time = ActionLogic.Calc(cmd.Action, cell, player);
 
-            Task.Factory.StartNew(() => {
-                cell.BeginChangeOwner(time);
-            }).ContinueWith((task) => {
-                cell.EndChangeOwner(player);
-            });
+            if (cell.CanAttack(player))
+            {
+                Task<bool>.Factory.StartNew(() =>
+                {
+                    return cell.BeginChangeOwner(player, time);
+                }).ContinueWith((task) =>
+                {
+                    if (task.Result)
+                        cell.EndChangeOwner();
+                });
+            }
         }
 
         public void JoinGame(Player player)

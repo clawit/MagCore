@@ -31,5 +31,7 @@ namespace MagCore.Model.Map
         IMap Clone();
 
         string Cells();
+
+        List<Cell> GetSiblings(Cell cell);
     }
 }

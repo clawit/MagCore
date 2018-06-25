@@ -64,7 +64,7 @@ namespace MagCore.Model.Map
                 Rows = new List<Row>();
                 for (int i = 3; i < lines.Length; i++)
                 {
-                    Row row = new Row(i - 3, lines[i].Trim().Length);
+                    Row row = new Row(this, i - 3, lines[i].Trim().Length);
                     var line = lines[i].Trim();
                     _data.Add( "\"" + line + "\"");    //additional use for map API
                     width = width < line.Length ? line.Length : width;
@@ -128,6 +128,11 @@ namespace MagCore.Model.Map
             json = string.Format(json, string.Join(",", rows));
             return json;
 
+        }
+
+        public virtual List<Cell> GetSiblings(Cell cell)
+        {
+            throw new NotImplementedException();
         }
     }
 }
