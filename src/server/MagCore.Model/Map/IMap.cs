@@ -28,5 +28,8 @@ namespace MagCore.Model.Map
         Cell Locate(Position pos);
 
         string ToJson();
+        IMap Clone();
+
+        string Cells();
     }
 }

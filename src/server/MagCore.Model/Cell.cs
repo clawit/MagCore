@@ -11,7 +11,6 @@ namespace MagCore.Model
         {
             Position = new Position(x, y);
             State = CellState.Empty;
-            Owner = Guid.Empty;
         }
 
         public Position Position { get; set; }
@@ -22,29 +21,55 @@ namespace MagCore.Model
 
         public CellState State { get; set; }
 
-        public Guid Owner { get; set; }
+        public int OwnerIndex {
+            get {
+                if (Owner == null || Owner.Id == Guid.Empty.ToString("N"))
+                    return 0;
+                else
+                    return Owner.Index;
+            }
+        }
+
+        public string OwnerId => Owner.Id;
+
+        public Player Owner { get; set; }
 
         public DateTime? OccupiedTime { get; set; } = null;
 
-        private object _locker { get; set; }
+        public object Locker = new object();
 
-        public bool ChangeOwner(Guid sender, int time)
+        public bool BeginChangeOwner(int time)
         {
-            if (State == CellState.Flicke)
-                return false;
-            else
+            lock (this.Locker)
             {
-                lock (this._locker)
+                if (State == CellState.Flicke)
+                    return false;
+                else
                 {
                     State = CellState.Flicke;
                     Thread.Sleep(time);
-                    Owner = sender;
-                    OccupiedTime = DateTime.Now;
-                    State = CellState.Occupied;
-                }
 
-                return true;
+                    return true;
+                }
             }
+        }
+
+        public void EndChangeOwner(Player sender)
+        {
+            lock (this.Locker)
+            {
+                Owner = sender;
+                OccupiedTime = DateTime.Now;
+                State = CellState.Occupied;
+            }
+        }
+
+        public string ToJson()
+        {
+            string json = "{{ \"X\":{0}, \"Y\":{1}, \"Type\":{2}, \"State\":{3}, \"Owner\":{4} }}";
+            json = string.Format(json, Position.X, Position.Y, (int)Type, (int)State, OwnerIndex);
+
+            return json;
         }
     }
 }

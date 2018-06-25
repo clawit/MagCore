@@ -7,8 +7,12 @@ namespace MagCore.Core
 {
     public static class ActionLogic
     {
-        public static int Calc(Model.Action action, Cell target, Guid sender)
+        public static int Calc(Model.Action action, Cell target, Player sender)
         {
+            if (target == null || sender == null)
+            {
+                throw new ArgumentNullException();
+            }
             switch (action)
             {
                 case Model.Action.Attack:
@@ -16,22 +20,25 @@ namespace MagCore.Core
                         return 1000;
                     else if (target.State == CellState.Occupied)
                     {
-                        int time = 500;
+                        int time = 1000;
                         if (target.Owner != sender 
                             && DateTime.Now > target.OccupiedTime)
                         {
+                            //attack other
                             var duration = (DateTime.Now - target.OccupiedTime).Value.TotalSeconds;
                             if (duration > 60)
-                                time = 2000;
+                                time = 3000;
                             else if (duration > 30)
-                                time = 5000;
+                                time = 6000;
                             else if (duration > 15)
-                                time = 7000;
+                                time = 9000;
                             else if (duration > 5)
-                                time = 15000;
+                                time = 12000;
                             else
-                                time = 30000;
+                                time = 15000;
                         }
+
+                        //Console.WriteLine("Sleep time:" + time.ToString());
                         return time;
                     }
                     else

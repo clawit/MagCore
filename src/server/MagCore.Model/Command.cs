@@ -8,7 +8,7 @@ namespace MagCore.Model
     {
         public Action Action { get; set; }
 
-        public Guid Sender { get; set; }
+        public string Sender { get; set; }
 
         public Position Target { get; set; }
     }

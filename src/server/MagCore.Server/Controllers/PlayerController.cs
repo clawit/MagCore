@@ -24,5 +24,18 @@ namespace MagCore.Server.Controllers
             else
                 return new ContentResult() { StatusCode = (int)HttpStatusCode.Conflict };
         }
+
+        // GET api/player/5b4512fb673f4a638fe2907b8483c0ab
+        [HttpGet("{id}")]
+        public ContentResult Get(string id)
+        {
+            if (Core.Players.All.ContainsKey(id))
+            {
+                var player = Core.Players.All[id];
+                return new ContentResult() { StatusCode = (int)HttpStatusCode.OK, Content = player.ToJson() };
+            }
+            else
+                return new ContentResult() { StatusCode = (int)HttpStatusCode.NotFound };
+        }
     }
 }

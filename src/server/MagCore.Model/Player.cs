@@ -24,13 +24,34 @@ namespace MagCore.Model
 
         public PlayerState State { get; set; } = PlayerState.Leisure;
 
+        /// <summary>
+        /// Player index based on One
+        /// </summary>
         public int Index { get; set; }
 
+        public Dictionary<string, Cell> Bases = null;
+
+        public void Reset()
+        {
+            Energy = 0;
+            Bases = new Dictionary<string, Cell>();
+        }
         public string ToJson()
         {
-            string json = "{{\"Id\":\"{0}\", \"Name\":\"{1}\", \"Token\":\"{2}\", \"Energy\":{3}, \"Color\":{4}, \"State\":{5}, \"Index\":{6}}}";
+            string json = "{{\"Id\":\"{0}\", \"Name\":\"{1}\", \"Token\":\"{2}\", \"Energy\":{3}, \"Color\":{4}, \"State\":{5}, \"Index\":{6}, \"Bases\":[{7}]}}";
 
-            return string.Format(json, Id, Name, Token, Energy, (int)Color, (int)State, Index);
+            string sBases = string.Empty;
+            if (Bases != null && Bases.Count > 0)
+            {
+                List<string> keys = new List<string>(Bases.Count);
+                foreach (string key in Bases.Keys)
+                {
+                    keys.Add("\"" + key + "\"");
+                }
+                sBases = string.Join(",", keys);
+            }
+            
+            return string.Format(json, Id, Name, Token, Energy, (int)Color, (int)State, Index, sBases);
         }
     }
 }

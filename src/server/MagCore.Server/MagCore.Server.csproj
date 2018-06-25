@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MagCore.Core\MagCore.Core.csproj" />
+    <ProjectReference Include="..\MagCore.Model\MagCore.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>

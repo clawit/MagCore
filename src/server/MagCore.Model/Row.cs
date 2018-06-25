@@ -18,5 +18,18 @@ namespace MagCore.Model
         public List<Cell> Cells = null;
 
         public int Count => Cells.Count;
+
+        public string ToJson()
+        {
+            string json = "[{0}]";
+            List<string> cells = new List<string>(Count);
+            foreach (Cell cell in Cells)
+            {
+                cells.Add(cell.ToJson());
+            }
+
+            json = string.Format(json, string.Join(",", cells));
+            return json;
+        }
     }
 }

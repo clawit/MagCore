@@ -70,6 +70,7 @@ namespace MagCore.Core
                         if (Players.All.ContainsKey(playerId))
                         {
                             var player = Players.All[playerId];
+                            player.Reset();
                             game.JoinGame(player);
 
                             return true;

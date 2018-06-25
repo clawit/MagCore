@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace MagCore.Monitor.Modules.Map
     {
         void SetMapData(dynamic data);
         void LoadContent(ContentManager content);
-        void Draw(SpriteBatch sb);
+        void Draw(SpriteBatch sb, GameTime gt);
+
+        Cell Locate(int x, int y);
     }
 }

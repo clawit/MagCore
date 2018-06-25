@@ -18,7 +18,7 @@ namespace MagCore.Model.Map
 
         public string MapFile { get; set; }
 
-        public List<Row> Rows { get; } = new List<Row>();
+        public List<Row> Rows { get; set; }
 
         private int _edge = 0;
         public int Edge => _edge;
@@ -44,7 +44,7 @@ namespace MagCore.Model.Map
             else
                 throw new FileNotFoundException("Map file not found.", MapFile);
         }
-        private List<string> _data = new List<string>();
+        private List<string> _data = null;
 
         private void LoadInternal(string[] lines)
         {
@@ -57,10 +57,11 @@ namespace MagCore.Model.Map
                 && Int32.TryParse(sDirection, out _direction))
             {
                 _shift = sShift == "0" ? false : true;
-
+                _data = new List<string>(); //additional use for map API init
                 //set map data & size
                 int width = 0;
                 int height = lines.Length - 3;
+                Rows = new List<Row>();
                 for (int i = 3; i < lines.Length; i++)
                 {
                     Row row = new Row(i - 3, lines[i].Trim().Length);
@@ -104,6 +105,29 @@ namespace MagCore.Model.Map
 
             map = string.Format(map, Edge, Convert.ToInt32(Shift), Direction, rows);
             return map;
+        }
+
+
+
+        public virtual IMap Clone()
+        {
+            IMap copy = (IMap)this.MemberwiseClone();
+            copy.Load();
+            return copy;
+        }
+
+        public string Cells()
+        {
+            string json = "[{0}]";
+            List<string> rows = new List<string>(Rows.Count);
+            foreach (Row row in Rows)
+            {
+                rows.Add(row.ToJson());
+            }
+
+            json = string.Format(json, string.Join(",", rows));
+            return json;
+
         }
     }
 }

@@ -96,10 +96,10 @@ namespace MagCore.Monitor
             switch (Global.RunState)
             {
                 case RunState.Init:
-                    GameListLoader.Draw(spriteBatch);
+                    GameListLoader.Draw(spriteBatch, gameTime);
                     break;
                 case RunState.Run:
-                    GameLoader.Draw(spriteBatch);
+                    GameLoader.Draw(spriteBatch, gameTime);
                     break;
                 default:
                     break;

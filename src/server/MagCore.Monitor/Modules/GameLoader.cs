@@ -1,4 +1,5 @@
 ﻿using MagCore.Monitor.Modules.Map;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -26,9 +27,9 @@ namespace MagCore.Monitor.Modules
             if (!_started)
             {
                 Task.Factory.StartNew(() => {
-                    string url = "api/Game/" + _game.id.ToString();
                     while (Global.RunState == RunState.Run)
                     {
+                        string url = "api/Game/" + _game.id.ToString();
                         string json = ApiReq.CreateReq()
                                         .AddMethod(url, "get")
                                         .GetResult();
@@ -50,14 +51,39 @@ namespace MagCore.Monitor.Modules
 
         private static void LoadGameData(dynamic data)
         {
-            if (data.Id.ToString() != _game.id.ToString())
+            //init players when the game switched
+            //or players not inited yet
+            //or players num changes (parse players first, and compare number )
+            List<Player> players = new List<Player>();
+            if (data != null)
             {
-                //init players when the game switched
-                Players = new Dictionary<int, Player>();
                 foreach (var item in data.Players)
                 {
                     Player player = new Player(item.Name.ToString(), Convert.ToInt32(item.Index), Convert.ToInt32(item.Color));
+                    players.Add(player);
+                }
+            }
+
+            if (data.Id.ToString() != _game.id.ToString() 
+                || Players == null
+                || Players.Count != players.Count)
+            {
+                Players = new Dictionary<int, Player>();
+                foreach (var player in players)
+                {
                     Players.Add(player.Index, player);
+                }
+            }
+
+            //load cells data
+            foreach (var row in data.Cells)
+            {
+                foreach (var item in row)
+                {
+                    Cell cell = _map.Locate(Convert.ToInt32(item.X), Convert.ToInt32(item.Y));
+                    cell.Type = Convert.ToInt32(item.Type);
+                    cell.State = Convert.ToInt32(item.State);
+                    cell.OwnerIndex = Convert.ToInt32(item.Owner);
                 }
             }
         }
@@ -86,15 +112,16 @@ namespace MagCore.Monitor.Modules
             Global.RunState = RunState.Init;
             _map = null;
             _game = null;
+            Players = null;
         }
 
 
-        public static void Draw(SpriteBatch sb)
+        public static void Draw(SpriteBatch sb, GameTime gt)
         {
             sb.Begin();
 
             if (_map != null)
-                _map.Draw(sb);
+                _map.Draw(sb, gt);
 
             sb.End();
         }

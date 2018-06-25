@@ -60,7 +60,7 @@ namespace MagCore.Monitor.Modules
             KeyboardHandler.Update();
         }
 
-        public static void Draw(SpriteBatch sb)
+        public static void Draw(SpriteBatch sb, GameTime gt)
         {
             sb.Begin();
 

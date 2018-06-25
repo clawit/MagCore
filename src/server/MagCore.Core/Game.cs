@@ -27,7 +27,7 @@ namespace MagCore.Core
 
         public string ToJson()
         {
-            string json = "{{\"Id\":\"{0}\", \"Map\":\"{1}\", \"State\":{2}, \"Players\":[{3}]}}";
+            string json = "{{\"Id\":\"{0}\", \"Map\":\"{1}\", \"State\":{2}, \"Players\":[{3}], \"Cells\":{4}}}";
             string players = string.Empty;
             lock (Players)
             {
@@ -45,13 +45,14 @@ namespace MagCore.Core
                 }
                 
             }
-            return string.Format(json, Id, _map.Name, (int)State, players);
+
+            return string.Format(json, Id, _map.Name, (int)State, players, _map.Cells());
         }
 
         public Game(IMap map)
         {
             _state = GameState.Wait;
-            _map = map;     //TODO: clone a new one?
+            _map = map.Clone();     
 
             Task.Factory.StartNew(() => {
                 ThreadId = Thread.CurrentThread.ManagedThreadId;
@@ -67,7 +68,7 @@ namespace MagCore.Core
                         switch (cmd.Action)
                         {
                             case Model.Action.Attack:
-                                ProcessAttack(cmd, map);
+                                ProcessAttack(cmd, _map);
                                 break;
                             default:
                                 break;
@@ -86,8 +87,14 @@ namespace MagCore.Core
         private void ProcessAttack(Command cmd, IMap map)
         {
             var cell = map.Locate(cmd.Target);
-            int time = ActionLogic.Calc(cmd.Action, cell, cmd.Sender);
-            cell.ChangeOwner(cmd.Sender, time);
+            var player = Core.Players.Get(cmd.Sender);
+            int time = ActionLogic.Calc(cmd.Action, cell, player);
+
+            Task.Factory.StartNew(() => {
+                cell.BeginChangeOwner(time);
+            }).ContinueWith((task) => {
+                cell.EndChangeOwner(player);
+            });
         }
 
         public void JoinGame(Player player)
@@ -101,15 +108,21 @@ namespace MagCore.Core
                 Random rnd = new Random(DateTime.Now.Millisecond);
                 int y = rnd.Next(0, _map.Rows.Count - 1);
                 int x = rnd.Next(0, _map.Rows[y].Count - 1);
-                if (_map.Rows[y].Cells[x].Type == CellType.Cell)
+                Cell cell = _map.Rows[y].Cells[x];
+                lock (cell)
                 {
-                    _map.Rows[y].Cells[x].Type = CellType.Base;
-                    _map.Rows[y].Cells[x].State = CellState.Occupied;
-                    _map.Rows[y].Cells[x].OccupiedTime = DateTime.MinValue;
-                    _map.Rows[y].Cells[x].Owner = player.Id;
+                    if (cell.Type == CellType.Cell)
+                    {
+                        cell.Type = CellType.Base;
+                        cell.State = CellState.Occupied;
+                        cell.OccupiedTime = DateTime.MinValue;
+                        cell.Owner = player;
+                        player.Bases.Add(cell.Key, cell);
+                        break;
+                    }
+                    else
+                        Thread.Sleep(100);
                 }
-
-                Thread.Sleep(100);
             }
         }
 
@@ -122,6 +135,19 @@ namespace MagCore.Core
             }
             else
                 return false;
+        }
+
+        public bool HasPlayer(string id)
+        {
+            if (this.Players.ContainsKey(id))
+                return true;
+            else
+                return false;
+        }
+
+        public void Enqueue(Command cmd)
+        {
+            _commands.Enqueue(cmd);
         }
     }
 }

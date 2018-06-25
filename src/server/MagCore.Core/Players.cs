@@ -26,5 +26,13 @@ namespace MagCore.Core
                 }
             }
         }
+
+        public static Player Get(string id)
+        {
+            if (All.ContainsKey(id))
+                return All[id];
+            else
+                return null;
+        }
     }
 }

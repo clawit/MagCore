@@ -58,12 +58,7 @@ namespace MagCore.Monitor.Modules.Map
             Cell.LoadContent(content);
         }
 
-        public void Draw(SpriteBatch sb)
-        {
-            DrawBg(sb);
-        }
-
-        private void DrawBg(SpriteBatch sb)
+        public void Draw(SpriteBatch sb, GameTime gt)
         {
             for (int i = 0; i < Rows.Count; i++)
             {
@@ -81,14 +76,15 @@ namespace MagCore.Monitor.Modules.Map
                         case 1:
                             //Cell
                             sb.Draw(_bgRect, rect, Color.White);
-                            if (GameLoader.Players != null && GameLoader.Players.Count > 0)
-                                cell.Draw(sb, rect, GameLoader.Players[cell.OwnerIndex].Color);
+                            if (GameLoader.Players != null && GameLoader.Players.Count > 0
+                                && cell.OwnerIndex > 0)
+                                cell.Draw(sb, rect, GameLoader.Players[cell.OwnerIndex].Color, gt);
                             break;
                         case 2:
                             //Base
                             sb.Draw(_bgBase, rect, Color.White);
                             if (GameLoader.Players != null && GameLoader.Players.Count > 0)
-                                cell.Draw(sb, rect, GameLoader.Players[cell.OwnerIndex].Color);
+                                cell.Draw(sb, rect, GameLoader.Players[cell.OwnerIndex].Color, gt);
                             break;
                         default:
                             continue;
@@ -96,6 +92,18 @@ namespace MagCore.Monitor.Modules.Map
                 }
             }
         }
-        
+
+        public Cell Locate(int x, int y)
+        {
+            Cell cell = null;
+            if (x >= 0 && y >= 0
+                && this.Rows.Count >= y
+                && this.Rows[y].Cells.Count >= x)
+            {
+                cell = this.Rows[y].Cells[x];
+            }
+
+            return cell;
+        }
     }
 }

@@ -43,12 +43,20 @@ namespace MagCore.Monitor.Modules.Map
 
         public DateTime? OccupiedTime { get; set; } = null;
 
-        public void Draw(SpriteBatch sb, Rectangle rect, int color)
+        private static Color _flickeColor1 = new Color(Color.White, 0.3f);
+        private static Color _flickeColor2 = new Color(Color.White, 0.7f);
+
+        public void Draw(SpriteBatch sb, Rectangle rect, int color, GameTime gt)
         {
             switch (State)
             {
                 case 1:
                     //Flicke
+                    int ms = gt.TotalGameTime.Milliseconds;
+                    if (ms < 500)
+                        sb.Draw(_colorCells[color], rect, _flickeColor1);
+                    else
+                        sb.Draw(_colorCells[color], rect, _flickeColor2);
                     break;
                 case 2:
                     //Occupied
