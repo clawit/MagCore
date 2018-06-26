@@ -31,10 +31,13 @@ namespace MagCore.Model
 
         public Dictionary<string, Cell> Bases = null;
 
+        public Dictionary<string, Cell> Cells = null;
+
         public void Reset()
         {
             Energy = 0;
             Bases = new Dictionary<string, Cell>();
+            Cells = new Dictionary<string, Cell>();
         }
         public string ToJson()
         {

@@ -58,6 +58,7 @@
     <Compile Include="Modules\Map\Row.cs" />
     <Compile Include="Modules\MouseHandler.cs" />
     <Compile Include="Modules\Player.cs" />
+    <Compile Include="Modules\ScreenHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

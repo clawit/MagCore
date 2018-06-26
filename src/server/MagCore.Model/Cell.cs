@@ -41,6 +41,7 @@ namespace MagCore.Model
 
         public object Locker = new object();
 
+        public Player LastOwner { get; set; }
         public bool BeginChangeOwner(Player sender, int time)
         {
             lock (this.Locker)
@@ -50,6 +51,7 @@ namespace MagCore.Model
                 else
                 {
                     State = CellState.Flicke;
+                    LastOwner = Owner;
                     Owner = sender;
                     Thread.Sleep(time);
 
@@ -58,19 +60,35 @@ namespace MagCore.Model
             }
         }
 
-        public void EndChangeOwner()
+        public bool EndChangeOwner(Player sender)
         {
             lock (this.Locker)
             {
-                OccupiedTime = DateTime.Now;
-                State = CellState.Occupied;
+                if (sender.State == PlayerState.Defeat)
+                {
+                    OccupiedTime = DateTime.MinValue;
+                    State = CellState.Empty;
+                    LastOwner = null;
+                    Owner = null;
+                    return false;
+                }
+                else
+                {
+                    OccupiedTime = DateTime.Now;
+                    State = CellState.Occupied;
+                    if (LastOwner != null && LastOwner.Cells.ContainsKey(Key))
+                        LastOwner.Cells.Remove(Key);
+                    sender.Cells.Add(Key, this);
+                    return true;
+                }
             }
         }
 
         public bool CanAttack(Player player)
         {
             if (this.State == CellState.Flicke
-                || this.Type == CellType.Null)
+                || this.Type == CellType.Null
+                || player.State == PlayerState.Defeat)
                 return false;
             else
             {

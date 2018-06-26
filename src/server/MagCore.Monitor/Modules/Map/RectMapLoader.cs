@@ -42,8 +42,8 @@ namespace MagCore.Monitor.Modules.Map
                 count++;
             }
 
-            _origin.X = (800 - (Rows[0].Count * 16)) / 2;
-            _origin.Y = (500 - (Rows.Count * 16)) / 2;
+            _origin.X = (Global.Graphics.PreferredBackBufferWidth - (Rows[0].Count * 16)) / 2;
+            _origin.Y = (Global.Graphics.PreferredBackBufferHeight - (Rows.Count * 16)) / 2;
         }
 
         public void LoadContent(ContentManager content)

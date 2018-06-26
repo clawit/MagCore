@@ -34,7 +34,8 @@ namespace MagCore.Model
     public enum PlayerState
     {
         Leisure,
-        Playing
+        Playing,
+        Defeat
     }
 
     public enum PlayerColor

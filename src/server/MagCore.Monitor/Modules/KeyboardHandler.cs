@@ -22,6 +22,8 @@ namespace MagCore.Monitor.Modules
                         var key = keys[0];
                         if (key >= Keys.D1 && key < (Keys)(Keys.D1 + GameListLoader.Games.Count))
                         {
+                            ScreenHandler.ChangeSize(10, 10);
+
                             var sel = key - Keys.D1;
                             GameLoader.Load(sel);
                         }
@@ -35,8 +37,8 @@ namespace MagCore.Monitor.Modules
                         if (key == Keys.Escape)
                         {
                             GameLoader.Unload();
+                            ScreenHandler.Reset();
                         }
-
                     }
                     break;
                 default:

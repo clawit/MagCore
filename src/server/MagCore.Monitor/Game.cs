@@ -30,6 +30,7 @@ namespace MagCore.Monitor
             // TODO: Add your initialization logic here
             MouseHandler.ShowMouse(this);
             Global.Content = this.Content;
+            Global.Graphics = this.graphics;
 
             base.Initialize();
         }
@@ -79,19 +80,18 @@ namespace MagCore.Monitor
                     break;
             }
             
-
-
             base.Update(gameTime);
         }
 
+        private static Color _colorBg = new Color(136, 136, 136);  //#888888
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.WhiteSmoke);
-
+            GraphicsDevice.Clear(_colorBg);
+            
             // TODO: Add your drawing code here
             switch (Global.RunState)
             {

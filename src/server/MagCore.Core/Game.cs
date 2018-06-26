@@ -95,12 +95,49 @@ namespace MagCore.Core
                 Task<bool>.Factory.StartNew(() =>
                 {
                     return cell.BeginChangeOwner(player, time);
-                }).ContinueWith((task) =>
+                }).ContinueWith<bool>((task) =>
                 {
                     if (task.Result)
-                        cell.EndChangeOwner();
+                        return cell.EndChangeOwner(player);
+                    else
+                        return false;
+                }).ContinueWith((task) => {
+                    if (task.Result)
+                        ProcessAttackResult(player, cell);
                 });
             }
+        }
+
+        private void ProcessAttackResult(Player sender, Cell cell)
+        {
+            //if the attacked cell is a base, try to find all the player's bases.
+            if (cell.Type == CellType.Base)
+            {
+                if (cell.LastOwner != null && cell.LastOwner != sender)
+                {
+                    var bases = cell.LastOwner.Bases;
+                    //if the player just remain one base, which is the attacked one, the player is defeated.
+                    if (bases.Count == 1)
+                    {
+                        //
+                        cell.LastOwner.State = PlayerState.Defeat;
+                        //release all the cells 
+                        foreach (Cell c in cell.LastOwner.Cells.Values)
+                        {
+                            c.LastOwner = null;
+                            c.OccupiedTime = DateTime.MinValue;
+                            c.Owner = null;
+                            c.State = CellState.Empty;
+                            c.Type = CellType.Cell;
+                        }
+                    }
+                }
+
+                //anyway, whatever it is , just change the type to normal cell
+                cell.Type = CellType.Cell;
+            }
+
+
         }
 
         public void JoinGame(Player player)
@@ -124,6 +161,7 @@ namespace MagCore.Core
                         cell.OccupiedTime = DateTime.MinValue;
                         cell.Owner = player;
                         player.Bases.Add(cell.Key, cell);
+                        player.Cells.Add(cell.Key, cell);
                         break;
                     }
                     else
