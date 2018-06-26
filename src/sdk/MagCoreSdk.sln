@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagCore.Sdk", "MagCore.Sdk\MagCore.Sdk.csproj", "{0CFC6A0C-D23E-47E5-9F1C-F1F84548C643}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustRush", "JustRush\JustRush.csproj", "{8932F5FC-B021-474A-B2BA-F46E82FB4BE1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0CFC6A0C-D23E-47E5-9F1C-F1F84548C643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CFC6A0C-D23E-47E5-9F1C-F1F84548C643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CFC6A0C-D23E-47E5-9F1C-F1F84548C643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CFC6A0C-D23E-47E5-9F1C-F1F84548C643}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8932F5FC-B021-474A-B2BA-F46E82FB4BE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8932F5FC-B021-474A-B2BA-F46E82FB4BE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8932F5FC-B021-474A-B2BA-F46E82FB4BE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8932F5FC-B021-474A-B2BA-F46E82FB4BE1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {741672DF-9903-4EBD-9A4A-030C225C84C0}
+	EndGlobalSection
+EndGlobal
