@@ -31,7 +31,9 @@ namespace MagCore.Sdk.Common
                     break;
                 case "DELETE":
                     response = await request.GetAsync(url);
-
+                    break;
+                case "PATCH":
+                    response = await request.PatchAsync(url, content);
                     break;
                 default:
                     break;

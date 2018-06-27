@@ -71,9 +71,14 @@ namespace MagCore.Core
                         {
                             var player = Players.All[playerId];
                             player.Reset();
-                            game.JoinGame(player);
 
-                            return true;
+                            if (game.Players.Values.Cast<Player>().Any(p => p.Color == player.Color))
+                                return false;
+                            else
+                            { 
+                                game.JoinGame(player);
+                                return true;
+                            }
                         }
                     }
                 }

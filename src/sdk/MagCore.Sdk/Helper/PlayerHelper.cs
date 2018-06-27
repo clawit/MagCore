@@ -33,5 +33,27 @@ namespace MagCore.Sdk.Helper
             else
                 return null;
         }
+
+        public static void GetPlayer(ref Player player)
+        {
+            var code = ApiReq.CreateReq()
+                        .WithMethod("api/player/" + player.Id, "get")
+                        .GetResult(out string json);
+            if (code == System.Net.HttpStatusCode.OK)
+            {
+                var result = DynamicJson.Parse(json);
+                lock (player.Locker)
+                {
+                    player.Energy = (int)result.Energy;
+                    player.State = (int)result.State;
+                    //parse bases
+                    player.Bases.Clear();
+                    foreach (string pos in result.Bases)
+                    {
+                        player.Bases.Add(Position.Parse(pos));
+                    }
+                }
+            }
+        }
     }
 }

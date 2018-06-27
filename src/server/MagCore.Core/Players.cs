@@ -15,8 +15,7 @@ namespace MagCore.Core
         {
             lock (All)
             {
-                if (All.Values.Any(p => p.Name == name)
-                    || All.Values.Any(p => p.Color == color))
+                if (All.Values.Any(p => p.Name == name))
                     return null;
                 else
                 {

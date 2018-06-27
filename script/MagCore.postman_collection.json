@@ -6,135 +6,227 @@
 	},
 	"item": [
 		{
-			"name": "NewGame",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"Map\":\"RectSmall\"}"
+			"name": "Game",
+			"description": "",
+			"item": [
+				{
+					"name": "NewGame",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"Map\":\"RectSmall\"}"
+						},
+						"url": {
+							"raw": "http://localhost:6000/api/game",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"api",
+								"game"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:6000/api/game",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "6000",
-					"path": [
-						"api",
-						"game"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GameList",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": "http://localhost:6000/api/game",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "6000",
-					"path": [
-						"api",
-						"game"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "NewPlayer",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"Name\":\"Cola\", \"Color\":2}"
+				{
+					"name": "GameList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:6000/api/game",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"api",
+								"game"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:6000/api/player",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "6000",
-					"path": [
-						"api",
-						"player"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetGame",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": "http://localhost:6000/api/game/77055c755d094672a3bcbf55a6e422ed",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "6000",
-					"path": [
-						"api",
-						"game",
-						"77055c755d094672a3bcbf55a6e422ed"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "JoinGame",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"Game\":\"77055c755d094672a3bcbf55a6e422ed\", \"Player\":\"0e87cea83c5c424fa8a5289c3cf1129e\"}"
+				{
+					"name": "GetGame",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:6000/api/game/02c1e53cb0024cbc8947fb9cc603e885",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"api",
+								"game",
+								"02c1e53cb0024cbc8947fb9cc603e885"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:6000/api/game/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "6000",
-					"path": [
-						"api",
-						"game",
-						""
-					]
+				{
+					"name": "JoinGame",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"Game\":\"bd7b176e8a3c42e3a60c126d14859d56\", \"Player\":\"d564b1b92e664f8ebec6a6b013da8f7d\"}"
+						},
+						"url": {
+							"raw": "http://localhost:6000/api/game/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"api",
+								"game",
+								""
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Player",
+			"description": "",
+			"item": [
+				{
+					"name": "NewPlayer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"Name\":\"Cola1\", \"Color\":1}"
+						},
+						"url": {
+							"raw": "http://localhost:6000/api/player",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"api",
+								"player"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPlayer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:6000/api/player/1e087202048545b4a4ea06f6fcfe0e48",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"api",
+								"player",
+								"1e087202048545b4a4ea06f6fcfe0e48"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Map",
+			"description": "",
+			"item": [
+				{
+					"name": "GetMap",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:6000/api/map/rectsmall",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"api",
+								"map",
+								"rectsmall"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Attack",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"Game\":\"7e5c0009a35349d18dfde57c5885a84c\", \"Player\":\"0cf2e22d75ec41c0993abf2a83f69000\", \"X\": 1, \"Y\":2}"
+						},
+						"url": {
+							"raw": "http://localhost:6000/api/cell/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"api",
+								"cell",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

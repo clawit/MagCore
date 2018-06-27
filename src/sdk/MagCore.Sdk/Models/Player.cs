@@ -20,6 +20,8 @@ namespace MagCore.Sdk.Models
 
         public int Index { get; set; }
 
-        public List<Cell> Bases { get; set; } = new List<Cell>();
+        public List<Position> Bases { get; set; } = new List<Position>();
+
+        public object Locker = new object();
     }
 }

@@ -97,8 +97,8 @@ namespace MagCore.Monitor.Modules.Map
         {
             Cell cell = null;
             if (x >= 0 && y >= 0
-                && this.Rows.Count >= y
-                && this.Rows[y].Cells.Count >= x)
+                && this.Rows.Count > y
+                && this.Rows[y].Cells.Count > x)
             {
                 cell = this.Rows[y].Cells[x];
             }
