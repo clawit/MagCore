@@ -25,9 +25,11 @@ namespace MagCore.Server.Controllers
 
                 Core.Game game = Core.Server.Game(param1);
                 if (game == null)
-                    return new ContentResult() { StatusCode = (int)HttpStatusCode.NotFound, Content = "Game not found." };
+                    return new ContentResult() { StatusCode = (int)HttpStatusCode.NotFound, Content = "Game not found" };
                 else if (!game.HasPlayer(param2))
-                    return new ContentResult() { StatusCode = (int)HttpStatusCode.NotFound, Content = "Player not found." };
+                    return new ContentResult() { StatusCode = (int)HttpStatusCode.NotFound, Content = "Player not found" };
+                else if (game.State != GameState.Playing)
+                    return new ContentResult() { StatusCode = (int)HttpStatusCode.Forbidden, Content = "Game over" };
                 else
                 {
                     Command cmd = new Command();

@@ -47,7 +47,7 @@ namespace MagCore.Core
                 List<Model.Game> games = new List<Model.Game>();
                 foreach (Game game in _games.Values)
                 {
-                    if (game.State == GameState.Wait)
+                    if (game.State == GameState.Wait || game.State == GameState.Playing)
                     {
                         games.Add(new Model.Game(game.Id, game.Map, (int)game.State));
                     }
@@ -127,6 +127,17 @@ namespace MagCore.Core
                 return _maps[name] as IMap;
             else
                 return null;
+        }
+
+        public static void RemoveGame(string gameId)
+        {
+            lock (_games)
+            {
+                if (_games.ContainsKey(gameId))
+                {
+                    _games.Remove(gameId);
+                }
+            }
         }
     }
 }

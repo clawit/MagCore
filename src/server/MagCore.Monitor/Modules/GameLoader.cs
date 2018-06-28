@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,11 +31,20 @@ namespace MagCore.Monitor.Modules
                     while (Global.RunState == RunState.Run)
                     {
                         string url = "api/Game/" + _game.id.ToString();
-                        string json = ApiReq.CreateReq()
-                                        .AddMethod(url, "get")
-                                        .GetResult();
-                        dynamic data = DynamicJson.Parse(json);
-                        LoadGameData(data);
+                        var result = ApiReq.CreateReq()
+                                        .WithMethod(url, "get")
+                                        .GetResult(out string json);
+                        if (result == HttpStatusCode.OK)
+                        {
+                            dynamic data = DynamicJson.Parse(json);
+                            if (json != "{}")
+                                LoadGameData(data);
+
+                            if (_state > 1)
+                            {
+                                break;
+                            }
+                        }
 
                         Thread.Sleep(1000);
                     }
@@ -51,6 +61,8 @@ namespace MagCore.Monitor.Modules
 
         private static void LoadGameData(dynamic data)
         {
+            _state = (int)data.State;
+
             //init players when the game switched
             //or players not inited yet
             //or players num changes (parse players first, and compare number )
@@ -98,12 +110,14 @@ namespace MagCore.Monitor.Modules
                 _map = MapLoaderFactory.CreateLoader(map);
                 _map.LoadContent(Global.Content);
 
-                string json = ApiReq.CreateReq()
-                                .AddMethod("api/map/" + map, "get")
-                                .GetResult();
-                _map.SetMapData(DynamicJson.Parse(json));
-
-                Global.RunState = RunState.Run;
+                var result = ApiReq.CreateReq()
+                                .WithMethod("api/map/" + map, "get")
+                                .GetResult(out string json);
+                if (result == HttpStatusCode.OK)
+                {
+                    _map.SetMapData(DynamicJson.Parse(json));
+                    Global.RunState = RunState.Run;
+                }
             }
         }
 

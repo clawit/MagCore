@@ -53,6 +53,7 @@ namespace MagCore.Model
                     State = CellState.Flicke;
                     LastOwner = Owner;
                     Owner = sender;
+                    sender.Cells.Add(Key, this);
                     Thread.Sleep(time);
 
                     return true;
@@ -78,7 +79,6 @@ namespace MagCore.Model
                     State = CellState.Occupied;
                     if (LastOwner != null && LastOwner.Cells.ContainsKey(Key))
                         LastOwner.Cells.Remove(Key);
-                    sender.Cells.Add(Key, this);
                     return true;
                 }
             }

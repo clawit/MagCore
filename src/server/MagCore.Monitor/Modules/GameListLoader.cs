@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,18 +32,21 @@ namespace MagCore.Monitor.Modules
                 Task.Factory.StartNew(() => {
                     while (Global.RunState == RunState.Init)
                     {
-                        string json = ApiReq.CreateReq()
-                                        .AddMethod("api/Game", "get")
-                                        .GetResult();
-                        dynamic array = DynamicJson.Parse(json);
-                        if (array.IsArray)
+                        var result = ApiReq.CreateReq()
+                                        .WithMethod("api/Game", "get")
+                                        .GetResult(out string json);
+                        if (result == HttpStatusCode.OK)
                         {
-                            lock (Games)
+                            dynamic array = DynamicJson.Parse(json);
+                            if (array.IsArray)
                             {
-                                Games.Clear();
-                                foreach (var item in array)
+                                lock (Games)
                                 {
-                                    Games.Add(item);
+                                    Games.Clear();
+                                    foreach (var item in array)
+                                    {
+                                        Games.Add(item);
+                                    }
                                 }
                             }
                         }

@@ -35,6 +35,7 @@ namespace MagCore.Model
 
         public void Reset()
         {
+            State = PlayerState.Leisure;
             Energy = 0;
             Bases = new Dictionary<string, Cell>();
             Cells = new Dictionary<string, Cell>();

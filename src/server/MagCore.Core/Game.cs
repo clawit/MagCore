@@ -56,9 +56,9 @@ namespace MagCore.Core
 
             Task.Factory.StartNew(() => {
                 ThreadId = Thread.CurrentThread.ManagedThreadId;
-                while (_state != GameState.Recycling)
+                while (_state != GameState.Done)
                 {
-                    if (_commands.IsEmpty)
+                    if (_commands.IsEmpty || _state != GameState.Playing)
                     {
                         Thread.Sleep(100);
                         continue;
@@ -74,13 +74,14 @@ namespace MagCore.Core
                                 break;
                         }
                     }
-                    else
-                        break;
+
+                    ProcessVictory();
                 }
             }).ContinueWith((task) => {
-                //Recycling
-
-
+                 //Recycling
+                _state = GameState.Recycling;
+               Thread.Sleep(10000);
+                Server.RemoveGame(Id);
             });
         }
 
@@ -105,6 +106,27 @@ namespace MagCore.Core
                     if (task.Result)
                         ProcessAttackResult(player, cell);
                 });
+            }
+        }
+
+        private void ProcessVictory()
+        {
+            int iCount = 0;
+            foreach (Player player in Players.Values)
+            {
+                if (player.State == PlayerState.Playing)
+                {
+                    iCount++;
+                }
+                if (iCount > 1)
+                {
+                    return;
+                }
+            }
+            if (iCount == 1)
+            {
+                //win
+                _state = GameState.Done;
             }
         }
 

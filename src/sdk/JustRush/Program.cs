@@ -79,25 +79,33 @@ namespace JustRush
 
             while (true)
             {
-                foreach (var row in game.Rows)
+                if (game.State == 1)
                 {
-                    foreach (var cell in row.Cells)
+                    foreach (var row in game.Rows)
                     {
-                        if (cell.Type != 0 && cell.State != 1 
-                            && cell.OwnerIndex == self.Index) //means this cell is self's
+                        foreach (var cell in row.Cells)
                         {
-                            var siblings = cell.GetSiblings();
-                            foreach (var pos in siblings)
+                            if (cell.Type != 0 && cell.State != 1
+                                && cell.OwnerIndex == self.Index) //means this cell is self's
                             {
-                                var target = game.Locate(pos.X, pos.Y);
-                                if (target!= null && target.Type != 0 && target.State != 1 
-                                    && target.OwnerIndex != self.Index)
+                                var siblings = cell.GetSiblings();
+                                foreach (var pos in siblings)
                                 {
-                                    MapHelper.Attack(game.Id, self.Id, pos.X, pos.Y);
+                                    var target = game.Locate(pos.X, pos.Y);
+                                    if (target != null && target.Type != 0 && target.State != 1
+                                        && target.OwnerIndex != self.Index)
+                                    {
+                                        MapHelper.Attack(game.Id, self.Id, pos.X, pos.Y);
+                                    }
                                 }
                             }
                         }
                     }
+                }
+                else if (game.State > 1)
+                {
+                    Console.WriteLine("Game over");
+                    break;
                 }
 
                 Thread.Sleep(1000);

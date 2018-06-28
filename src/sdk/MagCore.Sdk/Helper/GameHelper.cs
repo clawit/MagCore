@@ -35,6 +35,17 @@ namespace MagCore.Sdk.Helper
                 return false;
         }
 
+        public static bool StartGame(string gameId)
+        {
+            var code = ApiReq.CreateReq()
+                        .WithMethod("api/game/" + gameId, "put")
+                        .GetResult(out string json);
+            if (code == System.Net.HttpStatusCode.OK)
+                return true;
+            else
+                return false;
+        }
+
         public static bool GetGame(string gameId, ref Game game)
         {
             var code = ApiReq.CreateReq()
