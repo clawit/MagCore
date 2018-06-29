@@ -96,7 +96,7 @@ namespace MagCore.Core
                 Task<bool>.Factory.StartNew(() =>
                 {
                     return cell.BeginChangeOwner(player, time);
-                }).ContinueWith<bool>((task) =>
+                }).ContinueWith((task) =>
                 {
                     if (task.Result)
                         return cell.EndChangeOwner(player);
@@ -105,6 +105,8 @@ namespace MagCore.Core
                 }).ContinueWith((task) => {
                     if (task.Result)
                         ProcessAttackResult(player, cell);
+
+                    ClearLostCells();
                 });
             }
         }
@@ -130,6 +132,8 @@ namespace MagCore.Core
             }
         }
 
+        private Dictionary<int, Player> DefeatPlayers = new Dictionary<int, Player>();
+
         private void ProcessAttackResult(Player sender, Cell cell)
         {
             //if the attacked cell is a base, try to find all the player's bases.
@@ -143,6 +147,7 @@ namespace MagCore.Core
                     {
                         //
                         cell.LastOwner.State = PlayerState.Defeat;
+                        DefeatPlayers.Add(cell.LastOwner.Index, cell.LastOwner);
                         //release all the cells 
                         foreach (Cell c in cell.LastOwner.Cells.Values)
                         {
@@ -160,6 +165,27 @@ namespace MagCore.Core
             }
 
 
+        }
+
+        private void ClearLostCells()
+        {
+            if (DefeatPlayers.Count == 0)
+                return;
+
+            foreach (Row row in _map.Rows)
+            {
+                foreach (Cell cell in row.Cells)
+                {
+                    if (DefeatPlayers.ContainsKey(cell.OwnerIndex))
+                    {
+                        cell.LastOwner = null;
+                        cell.OccupiedTime = DateTime.MinValue;
+                        cell.Owner = null;
+                        cell.State = CellState.Empty;
+                        cell.Type = CellType.Cell;
+                    }
+                }
+            }
         }
 
         public void JoinGame(Player player)
