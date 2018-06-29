@@ -135,6 +135,12 @@ namespace MagCore.Core
             {
                 if (_games.ContainsKey(gameId))
                 {
+                    var game = _games[gameId] as Game;
+                    foreach (string playerId in game.Players.Keys)
+                    {
+                        Players.All.TryRemove(playerId, out var p);
+                    }
+
                     _games.Remove(gameId);
                 }
             }

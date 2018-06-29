@@ -53,7 +53,8 @@ namespace MagCore.Model
                     State = CellState.Flicke;
                     LastOwner = Owner;
                     Owner = sender;
-                    sender.Cells.Add(Key, this);
+                    if (!sender.Cells.ContainsKey(Key))
+                        sender.Cells.Add(Key, this);
                     Thread.Sleep(time);
 
                     return true;
