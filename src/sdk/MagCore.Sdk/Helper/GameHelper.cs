@@ -101,5 +101,28 @@ namespace MagCore.Sdk.Helper
             else
                 return false;
         }
+
+        public static string[] GameList()
+        {
+            var code = ApiReq.CreateReq()
+                        .WithMethod("api/game", "get")
+                        .GetResult(out string json);
+            if (code == System.Net.HttpStatusCode.OK)
+            {
+                var result = DynamicJson.Parse(json);
+                List<string> games = new List<string>();
+                foreach (var item in result)
+                {
+                    if ((int)item.state == 0)
+                    {
+                        games.Add(item.id.ToString());
+                    }
+                }
+
+                return games.ToArray();
+            }
+            else
+                return null;
+        }
     }
 }

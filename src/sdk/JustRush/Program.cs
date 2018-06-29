@@ -20,6 +20,7 @@ namespace JustRush
             map = MapHelper.GetMap("RectSmall");
             game = new Game(map.Rows.Count, map.Rows[0].Count);
 
+            Player:
             Console.WriteLine("Enter nickname:");
             input = Console.ReadLine();
             string name = input.Trim();
@@ -29,7 +30,12 @@ namespace JustRush
             int color = Int32.Parse(input);
 
             self = PlayerHelper.CreatePlayer(name, color);
-
+            if (self == null)
+            {
+                Console.WriteLine("Player has already existed with same name. Try to get a new name.");
+                goto Player;
+            }
+            
             string gameId = string.Empty;
             Console.WriteLine("1: Create a new game");
             Console.WriteLine("2: Join a game");
@@ -38,8 +44,33 @@ namespace JustRush
                 gameId = GameHelper.CreateGame("RectSmall");
             else
             {
-                Console.WriteLine("Input game id:");
-                gameId = Console.ReadLine();
+                Console.WriteLine("Game list:");
+                List:
+                var list = GameHelper.GameList();
+                if (list == null || list.Length == 0)
+                {
+                    Thread.Sleep(1000);
+                    goto List;
+                }
+                else
+                {
+                    for (int i = 0; i < list.Length; i++)
+                    {
+                        Console.WriteLine(i.ToString() + " : " + list[i]);
+                    }
+                }
+                Console.WriteLine("Select a game to join:");
+                input = Console.ReadLine();
+                if (Int32.TryParse(input.Trim(), out int sel)
+                    && sel >= 0 && sel < list.Length)
+                {
+                    gameId = list[sel];
+                }
+                else
+                {
+                    Console.WriteLine("Select error.");
+                    goto List;
+                }
             }
 
             game.Id = gameId;
