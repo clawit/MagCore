@@ -1,4 +1,5 @@
 # MagCore War
+<img src="https://github.com/KevinYeti/MagCore/raw/master/MagCore.png" width="64">
 A magnet core fight game by dotnet core
 
 ## Goal
