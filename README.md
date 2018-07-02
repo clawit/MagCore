@@ -10,3 +10,6 @@ Try to occupy as many cells as possible on the map.
 - You can only attack the cell that's adjacent to your occupied cells.
 - To occupy a cell takes different time. The time you need to attack an occupied cell is based on the last time when the cell is occupied. The longer the time is, the easier it would be to be attacked. 
 - When all your base cells are occupied by other players, you lose the game. All your cells will become empty cells.
+
+## Icon
+Icon courtesy of [The Noun Project](http://thenounproject.com)
