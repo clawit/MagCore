@@ -2,6 +2,7 @@
 
 ### URL
 ht<span></span>tp://106.75.33.221:6000/api/game/{GameId}
+
 {GameId}: 欲开始的游戏Id
 
 ### Method
