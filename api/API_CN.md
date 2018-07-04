@@ -35,7 +35,7 @@ Y坐标相同的所有单元构成一行.
 ## API
 
 ### 服务器BaseUrl
-http\://106.75.33.221:6000/
+http://106.75.33.221:6000/
 
 ### 游戏
 [创建游戏](https://github.com/KevinYeti/MagCore/blob/master/api/CreateGame_CN.md)
