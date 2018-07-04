@@ -1,7 +1,7 @@
 ## 创建游戏
 
 ### URL
-http://106.75.33.221:6000/api/game
+ht<span></span>tp://106.75.33.221:6000/api/game
 
 ### Method
 POST
@@ -15,6 +15,7 @@ Content-Type: application/json
 
 ### 返回结果
 Status Code: 200
+
 Content: 新创建游戏的GameId
 
 ### 示例
