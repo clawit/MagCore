@@ -37,24 +37,27 @@ Y坐标相同的所有单元构成一行.
 ### 服务器BaseUrl
 ht<span></span>tp://106.75.33.221:6000/
 
+### 状态说明
+[数据结构概念及状态说明](https://github.com/KevinYeti/MagCore/blob/master/api/DataMap_CN.md)
+
 ### 游戏
 [创建游戏](https://github.com/KevinYeti/MagCore/blob/master/api/CreateGame_CN.md)
 
-[获取游戏列表]()
+[获取游戏列表](https://github.com/KevinYeti/MagCore/blob/master/api/GameList_CN.md)
 
-[加入游戏]()
+[加入游戏](https://github.com/KevinYeti/MagCore/blob/master/api/JoinGame_CN.md)
 
-[开始游戏]()
+[开始游戏](https://github.com/KevinYeti/MagCore/blob/master/api/StartGame_CN.md)
 
-[获取游戏详细]()
+[获取游戏详细](https://github.com/KevinYeti/MagCore/blob/master/api/GetGame_CN.md)
 
 ### 玩家
-[创建新玩家]()
+[创建新玩家](https://github.com/KevinYeti/MagCore/blob/master/api/CreatePlayer_CN.md)
 
-[获取玩家信息]()
+[获取玩家信息](https://github.com/KevinYeti/MagCore/blob/master/api/GetPlayer_CN.md)
 
 ### 地图
-[获取地图信息]()
+[获取地图信息](https://github.com/KevinYeti/MagCore/blob/master/api/GetMap_CN.md)
 
-[攻击单元]()
+[攻击单元](https://github.com/KevinYeti/MagCore/blob/master/api/Attack_CN.md)
 
