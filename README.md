@@ -2,6 +2,8 @@
 <img src="https://github.com/KevinYeti/MagCore/raw/master/MagCore.png" width="64">
 A magnet core fight game by dotnet core
 
+## 中文说明
+[玩法及API说明](https://github.com/KevinYeti/MagCore/blob/master/api/API_CN.md)
 ## Goal
 Try to occupy as many cells as possible on the map.
 
