@@ -2,6 +2,7 @@
 
 ### URL
 ht<span></span>tp://106.75.33.221:6000/api/player/{PlayerId}
+
 {PlayerId}: 欲获取信息的玩家Id
 
 ### Method

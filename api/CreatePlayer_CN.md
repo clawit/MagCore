@@ -10,7 +10,12 @@ POST
 Content-Type: application/json
 
 ### Body
-{"Name":"Cola", "Color":0}
+```json
+{
+	"Name": "Cola",
+	"Color": 0
+}
+```
 
 Name: 欲创建玩家的昵称
 Color: 欲选择的颜色(0~9可选)
@@ -34,12 +39,19 @@ Content:
 ```
 
 Id: 新创建的玩家Id
+
 Name: 新创建的玩家昵称
+
 Token: 新创建的玩家安全令牌(暂保留)
+
 Energy: 新创建的玩家能量(暂保留)
+
 Color: 新创建的玩家颜色
+
 State: 新创建的玩家状态
+
 Index: 新创建的玩家标识号
+
 Bases: 新创建的玩家基地**数组**(暂保留)
 
 ### 示例
