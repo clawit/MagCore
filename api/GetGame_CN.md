@@ -2,6 +2,7 @@
 
 ### URL
 ht<span></span>tp://106.75.33.221:6000/api/game/{GameId}
+
 {GameId}: 欲获取信息的游戏Id
 
 ### Method
@@ -11,6 +12,7 @@ GET
 Status Code: 200
 
 Content:
+```json
 {
 	"Id": "ce71d669e4d141a298472591de92f8e6",
 	"Map": "RectSmall",
@@ -49,6 +51,7 @@ Content:
 		]
 	]
 }
+```
 
 Id: 游戏Id
 

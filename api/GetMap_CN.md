@@ -14,6 +14,7 @@ GET
 失败 Status Code: 404
 
 Content: 
+```json
 {
     "Edge": 4,
     "Shift": 0,
@@ -31,6 +32,7 @@ Content:
         "1111111110"
     ]
 }
+```
 
 Edge: 单元的形状(暂保留)
 Shift: 单元是否错误(暂保留)

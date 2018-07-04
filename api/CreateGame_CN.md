@@ -10,7 +10,11 @@ POST
 Content-Type: application/json
 
 ### Body
-{"Map":"RectSmall"}
+```json
+{
+	"Map": "RectSmall"
+}
+```
 
 ### 返回结果
 Status Code: 200

@@ -10,7 +10,12 @@ PATCH
 Content-Type: application/json
 
 ### Body
-{"Game":"1b0aa68195de4a2ba5a43437672dc56a", "Player":"a8fe42fd032e45f2bc9579e573d89f06"}
+```json
+{
+	"Game": "1b0aa68195de4a2ba5a43437672dc56a",
+	"Player": "a8fe42fd032e45f2bc9579e573d89f06"
+}
+```
 
 Game: 欲参加的游戏Id
 

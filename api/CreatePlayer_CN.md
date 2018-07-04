@@ -20,6 +20,7 @@ Color: 欲选择的颜色(0~9可选)
 失败 Status Code: 409
 
 Content: 
+```json
 {
     "Id": "784f7580cfba4344b039edecb8876dda",
     "Name": "Cola",
@@ -30,6 +31,7 @@ Content:
     "Index": 2,
     "Bases": []
 }
+```
 
 Id: 新创建的玩家Id
 Name: 新创建的玩家昵称

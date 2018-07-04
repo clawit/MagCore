@@ -10,7 +10,14 @@ PUT
 Content-Type: application/json
 
 ### Body
-{"Game":"382bb353448f4c4d9637263518c085b9", "Player":"48d19c8b4419409a9a63dfd1c8152db2", "X":2, "Y":4}
+```json
+{
+	"Game": "382bb353448f4c4d9637263518c085b9",
+	"Player": "48d19c8b4419409a9a63dfd1c8152db2",
+	"X": 2,
+	"Y": 4
+}
+```
 
 Game: 欲攻击单元的所属游戏Id
 Player: 玩家自己的PlayerId

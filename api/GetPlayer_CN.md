@@ -13,6 +13,7 @@ GET
 失败 Status Code: 404
 
 Content: 
+```json
 {
     "Id": "784f7580cfba4344b039edecb8876dda",
     "Name": "Cola",
@@ -25,6 +26,7 @@ Content:
         "3,7"
     ]
 }
+```
 
 Id: 玩家Id
 
