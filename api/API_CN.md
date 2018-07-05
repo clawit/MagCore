@@ -32,6 +32,10 @@ Y坐标相同的所有单元构成一行.
 - 所有基地被占, 判负. 同时清空所有其他被占单元.
 
 
+## 测试脚本
+[PostMan脚本下载](https://github.com/KevinYeti/MagCore/blob/master/script/MagCore.postman_collection.json)
+
+
 ## API
 
 ### 服务器BaseUrl
