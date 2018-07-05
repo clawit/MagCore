@@ -65,3 +65,8 @@ ht<span></span>tp://106.75.33.221:6000/
 
 [攻击单元](https://github.com/KevinYeti/MagCore/blob/master/api/Attack_CN.md)
 
+
+## SDK & Demo
+[C# SDK](https://github.com/KevinYeti/MagCore/tree/master/src/sdk/MagCore.Sdk)
+
+[Demo AI](https://github.com/KevinYeti/MagCore/tree/master/src/sdk/JustRush)

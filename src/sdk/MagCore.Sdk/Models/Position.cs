@@ -31,5 +31,19 @@ namespace MagCore.Sdk.Models
 
         public int X { get; set; }
         public int Y { get; set; }
+
+        public List<Position> GetSiblings()
+        {
+            List<Position> siblings = new List<Position>();
+            if (X >= 1)
+                siblings.Add(new Position(X - 1, Y));
+            siblings.Add(new Position(X + 1, Y));
+            if (Y >= 1)
+                siblings.Add(new Position(X, Y - 1));
+            siblings.Add(new Position(X, Y + 1));
+
+            return siblings;
+        }
+
     }
 }

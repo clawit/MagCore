@@ -91,6 +91,7 @@ namespace JustRush
 
         static void RushAttack()
         {
+            //create a thread to protect self 
             Task.Factory.StartNew(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
@@ -101,12 +102,19 @@ namespace JustRush
                     foreach (var pos in self.Bases)
                     {
                         MapHelper.Attack(game.Id, self.Id, pos.X, pos.Y);
+
+                        var siblings = pos.GetSiblings();
+                        foreach (var sibling in siblings)
+                        {
+                            MapHelper.Attack(game.Id, self.Id, sibling.X, sibling.Y);
+                        }
                     }
 
                     Thread.Sleep(3000);
                 }
             });
 
+            //another thread to get the newest game info
             Task.Factory.StartNew(() => {
                 Thread.CurrentThread.IsBackground = true;
 
@@ -118,6 +126,7 @@ namespace JustRush
                 }
             });
 
+            //main thread to rush more as much as possible
             while (true)
             {
                 if (game.State == 1)
@@ -129,7 +138,7 @@ namespace JustRush
                             if (cell.Type != 0 && cell.State != 1
                                 && cell.OwnerIndex == self.Index) //means this cell is self's
                             {
-                                var siblings = cell.GetSiblings();
+                                var siblings = cell.Position.GetSiblings();
                                 foreach (var pos in siblings)
                                 {
                                     var target = game.Locate(pos.X, pos.Y);
@@ -149,7 +158,7 @@ namespace JustRush
                     break;
                 }
 
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
             }
         }
     }
