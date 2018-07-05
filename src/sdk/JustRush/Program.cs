@@ -15,7 +15,8 @@ namespace JustRush
         {
             string input = string.Empty;
 
-            ServerHelper.Initialize("http://106.75.33.221:6000/");
+            //ServerHelper.Initialize("http://106.75.33.221:6000/");
+            ServerHelper.Initialize("http://localhost:6000/");
 
             map = MapHelper.GetMap("RectSmall");
             game = new Game(map.Rows.Count, map.Rows[0].Count);
@@ -90,16 +91,25 @@ namespace JustRush
 
         static void RushAttack()
         {
-            //Task.Factory.StartNew(() => {
-            //    while (true)
-            //    {
-            //        PlayerHelper.GetPlayer(ref self);
+            Task.Factory.StartNew(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                while (true)
+                {
+                    PlayerHelper.GetPlayer(ref self);
 
-            //        Thread.Sleep(3000);
-            //    }
-            //});
+                    foreach (var pos in self.Bases)
+                    {
+                        MapHelper.Attack(game.Id, self.Id, pos.X, pos.Y);
+                    }
+
+                    Thread.Sleep(3000);
+                }
+            });
 
             Task.Factory.StartNew(() => {
+                Thread.CurrentThread.IsBackground = true;
+
                 while (true)
                 {
                     GameHelper.GetGame(game.Id, ref game);

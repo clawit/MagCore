@@ -25,6 +25,8 @@ namespace MagCore.Core
 
         internal int ThreadId { get; set; }
 
+        internal DateTime CreateTime { get; set; } = DateTime.Now;
+
         public string ToJson()
         {
             string json = "{{\"Id\":\"{0}\", \"Map\":\"{1}\", \"State\":{2}, \"Players\":[{3}], \"Cells\":{4}}}";
@@ -56,6 +58,17 @@ namespace MagCore.Core
 
             Task.Factory.StartNew(() => {
                 ThreadId = Thread.CurrentThread.ManagedThreadId;
+                while (_state == GameState.Wait)
+                {
+                    var ts = DateTime.Now - CreateTime;
+
+                    if (ts.TotalMinutes >= 11)
+                    {
+                        _state = GameState.Done;
+                    }
+                    else
+                        Thread.Sleep(1000);
+                }
                 while (_state != GameState.Done)
                 {
                     if (_commands.IsEmpty || _state != GameState.Playing)
@@ -158,10 +171,12 @@ namespace MagCore.Core
                             c.Type = CellType.Cell;
                         }
                     }
+
+                    //change the type to normal cell if last owner is others
+                    cell.Type = CellType.Cell;
+
                 }
 
-                //anyway, whatever it is , just change the type to normal cell
-                cell.Type = CellType.Cell;
             }
 
 
