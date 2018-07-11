@@ -39,8 +39,8 @@ namespace MagCore.Core
                     foreach (Player player in Players.Values)
                     {
                         //sPlayers.Add("\"" + player.Index + "\"");
-                        string single = "{{\"Index\":{0}, \"Color\":{1}, \"Name\":\"{2}\"}}";
-                        single = string.Format(single, player.Index, (int)player.Color, player.Name);
+                        string single = "{{\"Index\":{0}, \"Color\":{1}, \"Name\":\"{2}\", \"State\":{3}}}";
+                        single = string.Format(single, player.Index, (int)player.Color, player.Name, (int)player.State);
                         sPlayers.Add(single);
                     }
                     players = string.Join(",", sPlayers);
@@ -71,14 +71,9 @@ namespace MagCore.Core
                 }
                 try
                 {
-                    while (_state != GameState.Done)
+                    while (_state == GameState.Playing)
                     {
-                        if (_commands.IsEmpty || _state != GameState.Playing)
-                        {
-                            Thread.Sleep(100);
-                            continue;
-                        }
-                        else if (_commands.TryDequeue(out var cmd))
+                        if (!_commands.IsEmpty && _commands.TryDequeue(out var cmd))
                         {
                             switch (cmd.Action)
                             {
@@ -88,6 +83,10 @@ namespace MagCore.Core
                                 default:
                                     break;
                             }
+                        }
+                        else
+                        {
+                            Thread.Sleep(100);
                         }
 
                         ProcessVictory();
