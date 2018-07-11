@@ -17,7 +17,14 @@ Content:
 	"Id": "ce71d669e4d141a298472591de92f8e6",
 	"Map": "RectSmall",
 	"State": 0,
-	"Players": [],
+	"Players": [
+        {
+            "Index": 5,
+            "Color": 1,
+            "Name": "cc",
+            "State": 1
+        }
+    ],
 	"Cells": [
 		[{
 				"X": 0,
@@ -63,6 +70,7 @@ Players: 当前游戏中的玩家**数组**
   - Index: 玩家的标识号
   - Color: 玩家的颜色
   - Name: 玩家昵称
+  - State: 玩家状态
 
 Cells: 游戏所有单元的状态**二维数组**
   - X: 单元的x坐标
