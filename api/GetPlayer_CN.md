@@ -35,7 +35,7 @@ Name: 玩家昵称
 
 Token: 玩家安全令牌(暂保留)
 
-Energy: 玩家能量(暂保留)
+Energy: 玩家能量
 
 Color: 玩家颜色
 
