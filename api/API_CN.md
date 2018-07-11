@@ -33,7 +33,7 @@ Y坐标相同的所有单元构成一行.
 
 
 ## 测试脚本
-[PostMan脚本下载](https://github.com/KevinYeti/MagCore/blob/master/script/MagCore.postman_collection.json)
+[PostMan脚本下载](/script/MagCore.postman_collection.json)
 
 
 ## API
@@ -42,31 +42,31 @@ Y坐标相同的所有单元构成一行.
 ht<span></span>tp://106.75.33.221:6000/
 
 ### 状态说明
-[数据结构概念及状态说明](https://github.com/KevinYeti/MagCore/blob/master/api/DataMap_CN.md)
+[数据结构概念及状态说明](/api/DataMap_CN.md)
 
 ### 游戏
-[创建游戏](https://github.com/KevinYeti/MagCore/blob/master/api/CreateGame_CN.md)
+[创建游戏](/api/CreateGame_CN.md)
 
-[获取游戏列表](https://github.com/KevinYeti/MagCore/blob/master/api/GameList_CN.md)
+[获取游戏列表](/api/GameList_CN.md)
 
-[加入游戏](https://github.com/KevinYeti/MagCore/blob/master/api/JoinGame_CN.md)
+[加入游戏](/api/JoinGame_CN.md)
 
-[开始游戏](https://github.com/KevinYeti/MagCore/blob/master/api/StartGame_CN.md)
+[开始游戏](/api/StartGame_CN.md)
 
-[获取游戏详细](https://github.com/KevinYeti/MagCore/blob/master/api/GetGame_CN.md)
+[获取游戏详细](/api/GetGame_CN.md)
 
 ### 玩家
-[创建新玩家](https://github.com/KevinYeti/MagCore/blob/master/api/CreatePlayer_CN.md)
+[创建新玩家](/api/CreatePlayer_CN.md)
 
-[获取玩家信息](https://github.com/KevinYeti/MagCore/blob/master/api/GetPlayer_CN.md)
+[获取玩家信息](/api/GetPlayer_CN.md)
 
 ### 地图
-[获取地图信息](https://github.com/KevinYeti/MagCore/blob/master/api/GetMap_CN.md)
+[获取地图信息](/api/GetMap_CN.md)
 
-[攻击单元](https://github.com/KevinYeti/MagCore/blob/master/api/Attack_CN.md)
+[攻击单元](/api/Attack_CN.md)
 
 
 ## SDK & Demo
-[C# SDK](https://github.com/KevinYeti/MagCore/tree/master/src/sdk/MagCore.Sdk)
+[C# SDK](/src/sdk/MagCore.Sdk)
 
-[Demo AI](https://github.com/KevinYeti/MagCore/tree/master/src/sdk/JustRush)
+[Demo AI](/src/sdk/JustRush)
