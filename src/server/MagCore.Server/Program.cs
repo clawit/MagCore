@@ -19,11 +19,22 @@ namespace MagCore.Server
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+            WebHost.CreateDefaultBuilder(new string[] { })
                 .UseStartup<Startup>()
                 .UseKestrel(options =>
                 {
-                    options.Listen(IPAddress.Any, 6000);
+                    if (args.Any(g => g.Trim().ToLower().Contains("-port=")))
+                    {
+                        string arg = args.SingleOrDefault(g => g.Trim().ToLower().Contains("-port="));
+                        string sPort = arg.ToLower().Trim().Replace("-port=", string.Empty);
+                        if (Int32.TryParse(sPort, out int port))
+                        {
+                            options.Listen(IPAddress.Any, port);
+                        }
+                    }
+                    else
+                        options.Listen(IPAddress.Any, 6000);
+
                 })
                 .Build();
     }
