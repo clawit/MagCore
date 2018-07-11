@@ -3,7 +3,7 @@
 A magnet core fight game by dotnet core
 
 ## 中文说明
-[玩法及API说明](https://github.com/KevinYeti/MagCore/blob/master/api/API_CN.md)
+[玩法及API说明](/api/API_CN.md)
 ## Goal
 Try to occupy as many cells as possible on the map.
 
