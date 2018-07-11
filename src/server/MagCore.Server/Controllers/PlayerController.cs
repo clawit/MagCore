@@ -16,13 +16,20 @@ namespace MagCore.Server.Controllers
         [HttpPost]
         public ContentResult Post([FromBody]dynamic json)
         {
-            var name = json.Name.ToString().Trim();
-            PlayerColor color = (PlayerColor)json.Color;
-            var player = Core.Players.NewPlayer(name, color);
-            if (player != null)
-                return new ContentResult() { StatusCode = (int)HttpStatusCode.OK, Content = player };
-            else
-                return new ContentResult() { StatusCode = (int)HttpStatusCode.Conflict };
+            try
+            {
+                var name = json.Name.ToString().Trim();
+                PlayerColor color = (PlayerColor)json.Color;
+                var player = Core.Players.NewPlayer(name, color);
+                if (player != null)
+                    return new ContentResult() { StatusCode = (int)HttpStatusCode.OK, Content = player };
+                else
+                    return new ContentResult() { StatusCode = (int)HttpStatusCode.Conflict };
+            }
+            catch
+            {
+                return new ContentResult() { StatusCode = (int)HttpStatusCode.BadRequest };
+            }
         }
 
         // GET api/player/5b4512fb673f4a638fe2907b8483c0ab

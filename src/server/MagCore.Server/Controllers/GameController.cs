@@ -35,24 +35,38 @@ namespace MagCore.Server.Controllers
         [HttpPost]
         public ContentResult Post([FromBody]dynamic json)
         {
-            var map = json.Map.ToString();
-            var game = Core.Server.NewGame(map);
-            if (!string.IsNullOrEmpty(game))
-                return new ContentResult() { StatusCode = (int)HttpStatusCode.OK, Content = game };
-            else
+            try
+            {
+                var map = json.Map.ToString();
+                var game = Core.Server.NewGame(map);
+                if (!string.IsNullOrEmpty(game))
+                    return new ContentResult() { StatusCode = (int)HttpStatusCode.OK, Content = game };
+                else
+                    return new ContentResult() { StatusCode = (int)HttpStatusCode.BadRequest };
+            }
+            catch
+            {
                 return new ContentResult() { StatusCode = (int)HttpStatusCode.BadRequest };
+            }
         }
 
         // PATCH api/game - Join game
         [HttpPatch]
         public ContentResult Patch([FromBody]dynamic json)
         {
-            var game = json.Game.ToString();
-            var player = json.Player.ToString();
-            if (Core.Server.Join(game, player))
-                return new ContentResult() { StatusCode = (int)HttpStatusCode.OK };
-            else
-                return new ContentResult() { StatusCode = (int)HttpStatusCode.Forbidden };
+            try
+            {
+                var game = json.Game.ToString();
+                var player = json.Player.ToString();
+                if (Core.Server.Join(game, player))
+                    return new ContentResult() { StatusCode = (int)HttpStatusCode.OK };
+                else
+                    return new ContentResult() { StatusCode = (int)HttpStatusCode.Forbidden };
+            }
+            catch
+            {
+                return new ContentResult() { StatusCode = (int)HttpStatusCode.BadRequest };
+            }
         }
 
         // Put api/game/5b4512fb673f4a638fe2907b7483c0ab - Start game

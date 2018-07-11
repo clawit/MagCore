@@ -101,7 +101,7 @@ namespace MagCore.Core
             }).ContinueWith((task) => {
                  //Recycling
                 _state = GameState.Recycling;
-               Thread.Sleep(10000);
+                Thread.Sleep(10000);
                 Server.RemoveGame(Id);
             });
         }
