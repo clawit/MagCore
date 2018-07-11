@@ -69,26 +69,34 @@ namespace MagCore.Core
                     else
                         Thread.Sleep(1000);
                 }
-                while (_state != GameState.Done)
+                try
                 {
-                    if (_commands.IsEmpty || _state != GameState.Playing)
+                    while (_state != GameState.Done)
                     {
-                        Thread.Sleep(100);
-                        continue;
-                    }
-                    else if (_commands.TryDequeue(out var cmd))
-                    {
-                        switch (cmd.Action)
+                        if (_commands.IsEmpty || _state != GameState.Playing)
                         {
-                            case Model.Action.Attack:
-                                ProcessAttack(cmd, _map);
-                                break;
-                            default:
-                                break;
+                            Thread.Sleep(100);
+                            continue;
                         }
-                    }
+                        else if (_commands.TryDequeue(out var cmd))
+                        {
+                            switch (cmd.Action)
+                            {
+                                case Model.Action.Attack:
+                                    ProcessAttack(cmd, _map);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
 
-                    ProcessVictory();
+                        ProcessVictory();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.StackTrace);
                 }
             }).ContinueWith((task) => {
                  //Recycling
@@ -100,33 +108,45 @@ namespace MagCore.Core
 
         private void ProcessAttack(Command cmd, IMap map)
         {
-            var cell = map.Locate(cmd.Target);
-            var player = Core.Players.Get(cmd.Sender);
-            int time = ActionLogic.Calc(cmd.Action, cell, player);
-
-            if (cell.CanAttack(player))
+            int time = 0;
+            try
             {
-                Task<bool>.Factory.StartNew(() =>
+                var cell = map.Locate(cmd.Target);
+                var player = Core.Players.Get(cmd.Sender);
+                
+                if (cell != null && cell.CanAttack(player))
                 {
-                    return cell.BeginChangeOwner(player, time);
-                }).ContinueWith((task) =>
-                {
-                    if (task.Result)
-                        return cell.EndChangeOwner(player);
-                    else
-                        return false;
-                }).ContinueWith((task) => {
-                    if (task.Result)
-                        ProcessAttackResult(player, cell);
+                    time = ActionLogic.Calc(cmd.Action, cell, player);
+                    Task<bool>.Factory.StartNew(() =>
+                    {
+                        return cell.BeginChangeOwner(player, time);
+                    }).ContinueWith((task) =>
+                    {
+                        if (task.Result)
+                            return cell.EndChangeOwner(player);
+                        else
+                            return false;
+                    }).ContinueWith((task) => {
+                        if (task.Result)
+                            ProcessAttackResult(player, cell);
 
-                    ClearLostCells();
-                });
+                        ClearLostCells();
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("cell pos:" + cmd.Target.ToString());
+                Console.WriteLine("sender:" + cmd.Sender);
+                Console.WriteLine("calced time:" + time.ToString());
+                throw ex;
             }
         }
 
         private void ProcessVictory()
         {
             int iCount = 0;
+
             foreach (Player player in Players.Values)
             {
                 if (player.State == PlayerState.Playing)

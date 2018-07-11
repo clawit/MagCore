@@ -15,8 +15,8 @@ namespace JustRush
         {
             string input = string.Empty;
 
-            //ServerHelper.Initialize("http://106.75.33.221:6000/");
-            ServerHelper.Initialize("http://localhost:6000/");
+            ServerHelper.Initialize("http://106.75.33.221:6000/");
+            //ServerHelper.Initialize("http://localhost:6000/");
 
             map = MapHelper.GetMap("RectSmall");
             game = new Game(map.Rows.Count, map.Rows[0].Count);
@@ -155,6 +155,7 @@ namespace JustRush
                 else if (game.State > 1)
                 {
                     Console.WriteLine("Game over");
+
                     break;
                 }
 
