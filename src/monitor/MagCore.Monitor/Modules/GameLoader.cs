@@ -21,7 +21,7 @@ namespace MagCore.Monitor.Modules
 
         internal static Dictionary<int, Player> Players = null;
 
-        private static IMapLoader _map = null;
+        internal static IMapLoader _map = null;
         public static void Update()
         {
             //init a new thread to refresh the game list

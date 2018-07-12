@@ -17,8 +17,8 @@ namespace MagCore.Monitor.Modules
 
         public static void ChangeSize(int col, int row)
         {
-            Global.Graphics.PreferredBackBufferWidth = col * 16 + 2;
-            Global.Graphics.PreferredBackBufferHeight = row * 16 + 2;
+            Global.Graphics.PreferredBackBufferWidth = col * 16;
+            Global.Graphics.PreferredBackBufferHeight = row * 16;
             Global.Graphics.ApplyChanges();
         }
     }

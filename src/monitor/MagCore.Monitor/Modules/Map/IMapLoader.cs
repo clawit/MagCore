@@ -16,5 +16,8 @@ namespace MagCore.Monitor.Modules.Map
         void Draw(SpriteBatch sb, GameTime gt);
 
         Cell Locate(int x, int y);
+
+        int Height { get; }
+        int Width { get; }
     }
 }

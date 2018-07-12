@@ -102,7 +102,7 @@ namespace MagCore.Sdk.Helper
                 return false;
         }
 
-        public static string[] GameList()
+        public static dynamic[] GameList()
         {
             var code = ApiReq.CreateReq()
                         .WithMethod("api/game", "get")
@@ -110,13 +110,10 @@ namespace MagCore.Sdk.Helper
             if (code == System.Net.HttpStatusCode.OK)
             {
                 var result = DynamicJson.Parse(json);
-                List<string> games = new List<string>();
+                List<dynamic> games = new List<dynamic>();
                 foreach (var item in result)
                 {
-                    if ((int)item.state == 0)
-                    {
-                        games.Add(item.id.ToString());
-                    }
+                    games.Add(item);
                 }
 
                 return games.ToArray();

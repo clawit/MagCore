@@ -18,9 +18,6 @@ namespace JustRush
             ServerHelper.Initialize("http://106.75.33.221:6000/");
             //ServerHelper.Initialize("http://localhost:6000/");
 
-            map = MapHelper.GetMap("RectSmall");
-            game = new Game(map.Rows.Count, map.Rows[0].Count);
-
             Player:
             Console.WriteLine("Enter nickname:");
             input = Console.ReadLine();
@@ -38,11 +35,17 @@ namespace JustRush
             }
             
             string gameId = string.Empty;
+            string mapName = string.Empty;
             Console.WriteLine("1: Create a new game");
             Console.WriteLine("2: Join a game");
             input = Console.ReadLine();
             if (input == "1")
+            {
+                map = MapHelper.GetMap("RectSmall");
+                game = new Game(map.Rows.Count, map.Rows[0].Count);
                 gameId = GameHelper.CreateGame("RectSmall");
+
+            }
             else
             {
                 Console.WriteLine("Game list:");
@@ -57,7 +60,11 @@ namespace JustRush
                 {
                     for (int i = 0; i < list.Length; i++)
                     {
-                        Console.WriteLine(i.ToString() + " : " + list[i]);
+                        if (list[i].state == 0)
+                        {
+                            Console.WriteLine("{0} : {1} 地图:{2}", i, list[i].id.ToString(), list[i].map.ToString());
+                        }
+                        
                     }
                 }
                 Console.WriteLine("Select a game to join:");
@@ -65,7 +72,12 @@ namespace JustRush
                 if (Int32.TryParse(input.Trim(), out int sel)
                     && sel >= 0 && sel < list.Length)
                 {
-                    gameId = list[sel];
+                    gameId = list[sel].id.ToString();
+                    mapName = list[sel].map.ToString();
+
+                    map = MapHelper.GetMap(mapName);
+                    game = new Game(map.Rows.Count, map.Rows[0].Count);
+
                 }
                 else
                 {
@@ -73,6 +85,7 @@ namespace JustRush
                     goto List;
                 }
             }
+
 
             game.Id = gameId;
 

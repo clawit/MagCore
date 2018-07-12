@@ -16,6 +16,11 @@ Content-Type: application/json
 }
 ```
 
+支持的地图列表:
+- 小地图: RectSmall
+- 中型地图: RectMid
+- 大型地图: RectLarge
+
 ### 返回结果
 Status Code: 200
 

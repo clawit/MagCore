@@ -19,7 +19,26 @@ namespace MagCore.Monitor.Modules.Map
 
         private Color _color = Color.White;
 
-        private Position _origin = new Position(0, 0);
+        //private Position _origin = new Position(0, 0);
+
+        public int Height
+        {
+            get
+            {
+                return Rows.Count; 
+            }
+        }
+        public int Width
+        {
+            get
+            {
+                if (Rows.Count > 0)
+                    return Rows[0].Cells.Count;
+                else
+                    return 0;
+            }
+        }
+
 
         public RectMapLoader()
         {
@@ -42,8 +61,8 @@ namespace MagCore.Monitor.Modules.Map
                 count++;
             }
 
-            _origin.X = (Global.Graphics.PreferredBackBufferWidth - (Rows[0].Count * 16)) / 2;
-            _origin.Y = (Global.Graphics.PreferredBackBufferHeight - (Rows.Count * 16)) / 2;
+            //_origin.X = (Global.Graphics.PreferredBackBufferWidth - (Rows[0].Count * 16)) / 2;
+            //_origin.Y = (Global.Graphics.PreferredBackBufferHeight - (Rows.Count * 16)) / 2;
         }
 
         public void LoadContent(ContentManager content)
@@ -66,7 +85,8 @@ namespace MagCore.Monitor.Modules.Map
                 for (int j = 0; j < row.Count; j++)
                 {
                     Cell cell = row.Cells[j];
-                    Rectangle rect = new Rectangle(j * 16 + _origin.X, i * 16 + _origin.Y, 16, 16);
+                    //Rectangle rect = new Rectangle(j * 16 + _origin.X, i * 16 + _origin.Y, 16, 16);
+                    Rectangle rect = new Rectangle(j * 16, i * 16, 16, 16);
                     switch (cell.Type)
                     {
                         case 0:
