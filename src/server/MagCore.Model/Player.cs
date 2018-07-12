@@ -18,7 +18,7 @@ namespace MagCore.Model
 
         public string Token { get; set; } = Guid.NewGuid().ToString("N");
 
-        public int Energy { get; set; } = 0;
+        public int Energy { get; set; } = 10;
 
         public PlayerColor Color { get; set; }
 
@@ -36,7 +36,7 @@ namespace MagCore.Model
         public void Reset()
         {
             State = PlayerState.Leisure;
-            Energy = 0;
+            Energy = 10;
             Bases = new Dictionary<string, Cell>();
             Cells = new Dictionary<string, Cell>();
         }

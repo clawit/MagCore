@@ -46,10 +46,18 @@ namespace MagCore.Model
         {
             lock (this.Locker)
             {
-                if (State == CellState.Flicke)
+                if (State == CellState.Flicke
+                    || sender.Energy < 1)
                     return false;
                 else
                 {
+                    sender.Energy -= (int)Math.Ceiling(sender.Energy * 0.05);
+                    if (sender.Energy <= 0)
+                    {
+                        sender.Energy = 0;
+                        return false;
+                    }
+
                     State = CellState.Flicke;
                     LastOwner = Owner;
                     Owner = sender;
@@ -89,7 +97,8 @@ namespace MagCore.Model
         {
             if (this.State == CellState.Flicke
                 || this.Type == CellType.Null
-                || player.State == PlayerState.Defeat)
+                || player.State == PlayerState.Defeat
+                || player.Energy < 1)
                 return false;
             else
             {

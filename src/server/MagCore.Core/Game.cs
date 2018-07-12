@@ -23,7 +23,8 @@ namespace MagCore.Core
 
         internal Hashtable Players { get; } = new Hashtable();
 
-        internal int ThreadId { get; set; }
+        internal string _MainThreadName { get; set; }
+        internal string _EnergyThreadName { get; set; }
 
         internal DateTime CreateTime { get; set; } = DateTime.Now;
 
@@ -57,7 +58,7 @@ namespace MagCore.Core
             _map = map.Clone();     
 
             Task.Factory.StartNew(() => {
-                ThreadId = Thread.CurrentThread.ManagedThreadId;
+                _MainThreadName = "GameMainThread." + Thread.CurrentThread.ManagedThreadId.ToString();
                 while (_state == GameState.Wait)
                 {
                     var ts = DateTime.Now - CreateTime;
@@ -103,6 +104,33 @@ namespace MagCore.Core
                 Thread.Sleep(10000);
                 Server.RemoveGame(Id);
             });
+
+            Task.Factory.StartNew( () => {
+                _EnergyThreadName = "GameEnergyThread." + Thread.CurrentThread.ManagedThreadId.ToString();
+                while (true)
+                {
+                    if (_state == GameState.Playing)
+                    {
+                        ProcessEnergy();
+                    }
+                    else if (_state >= GameState.Recycling)
+                    {
+                        break;
+                    }
+                    Thread.Sleep(1000);
+                }
+            });
+        }
+
+        private void ProcessEnergy()
+        {
+            foreach (Player player in Players.Values)
+            {
+                if (player.State == PlayerState.Playing)
+                {
+                    player.Energy += (int)Math.Ceiling(player.Cells.Count / 2.0);
+                }
+            }
         }
 
         private void ProcessAttack(Command cmd, IMap map)
