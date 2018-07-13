@@ -162,6 +162,13 @@ namespace MagCore.Core
                 //win
                 _state = GameState.Done;
             }
+
+            var ts = DateTime.Now - CreateTime;
+            if (ts.TotalHours >= 5)
+            {
+                _state = GameState.Done;
+            }
+
         }
 
         private Dictionary<int, Player> DefeatPlayers = new Dictionary<int, Player>();
