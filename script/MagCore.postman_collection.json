@@ -21,18 +21,15 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"Map\":\"RectSmall\"}"
+							"raw": "{\"Map\":\"RectMid\"}"
 						},
 						"url": {
-							"raw": "http://106.75.33.221:6000/api/game",
+							"raw": "http://{{ip}}:{{port}}/api/game",
 							"protocol": "http",
 							"host": [
-								"106",
-								"75",
-								"33",
-								"221"
+								"{{ip}}"
 							],
-							"port": "6000",
+							"port": "{{port}}",
 							"path": [
 								"api",
 								"game"
@@ -48,15 +45,12 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://106.75.33.221:6000/api/game",
+							"raw": "http://{{ip}}:{{port}}/api/game",
 							"protocol": "http",
 							"host": [
-								"106",
-								"75",
-								"33",
-								"221"
+								"{{ip}}"
 							],
-							"port": "6000",
+							"port": "{{port}}",
 							"path": [
 								"api",
 								"game"
@@ -72,19 +66,16 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://106.75.33.221:6000/api/game/ce71d669e4d141a298472591de92f8e6",
+							"raw": "http://{{ip}}:{{port}}/api/game/55d0b30c1f8740928307ae5ad8f1b7a4",
 							"protocol": "http",
 							"host": [
-								"106",
-								"75",
-								"33",
-								"221"
+								"{{ip}}"
 							],
-							"port": "6000",
+							"port": "{{port}}",
 							"path": [
 								"api",
 								"game",
-								"ce71d669e4d141a298472591de92f8e6"
+								"55d0b30c1f8740928307ae5ad8f1b7a4"
 							]
 						}
 					},
@@ -105,15 +96,12 @@
 							"raw": "{\"Game\":\"ce71d669e4d141a298472591de92f8e6\", \"Player\":\"ec2baa3c04954bdaa5884160fe93ce36\"}"
 						},
 						"url": {
-							"raw": "http://106.75.33.221:6000/api/game/",
+							"raw": "http://{{ip}}:{{port}}/api/game/",
 							"protocol": "http",
 							"host": [
-								"106",
-								"75",
-								"33",
-								"221"
+								"{{ip}}"
 							],
-							"port": "6000",
+							"port": "{{port}}",
 							"path": [
 								"api",
 								"game",
@@ -130,19 +118,16 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://106.75.33.221:6000/api/game/dcc83423fba04460a4d6b28fe6da4142",
+							"raw": "http://{{ip}}:{{port}}/api/game/d665d0778be443a7a01ab12a45566d9f",
 							"protocol": "http",
 							"host": [
-								"106",
-								"75",
-								"33",
-								"221"
+								"{{ip}}"
 							],
-							"port": "6000",
+							"port": "{{port}}",
 							"path": [
 								"api",
 								"game",
-								"dcc83423fba04460a4d6b28fe6da4142"
+								"d665d0778be443a7a01ab12a45566d9f"
 							]
 						}
 					},
@@ -169,15 +154,12 @@
 							"raw": "{\"Name\":\"Cola\", \"Color\":0}"
 						},
 						"url": {
-							"raw": "http://106.75.33.221:6000/api/player",
+							"raw": "http://{{ip}}:{{port}}/api/player",
 							"protocol": "http",
 							"host": [
-								"106",
-								"75",
-								"33",
-								"221"
+								"{{ip}}"
 							],
-							"port": "6000",
+							"port": "{{port}}",
 							"path": [
 								"api",
 								"player"
@@ -193,15 +175,12 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://106.75.33.221:6000/api/player/784f7580cfba4344b039edecb8876dda",
+							"raw": "http://{{ip}}:{{port}}/api/player/784f7580cfba4344b039edecb8876dda",
 							"protocol": "http",
 							"host": [
-								"106",
-								"75",
-								"33",
-								"221"
+								"{{ip}}"
 							],
-							"port": "6000",
+							"port": "{{port}}",
 							"path": [
 								"api",
 								"player",
@@ -224,15 +203,12 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://106.75.33.221:6000/api/map/rectsmall",
+							"raw": "http://{{ip}}:{{port}}/api/map/rectsmall",
 							"protocol": "http",
 							"host": [
-								"106",
-								"75",
-								"33",
-								"221"
+								"{{ip}}"
 							],
-							"port": "6000",
+							"port": "{{port}}",
 							"path": [
 								"api",
 								"map",
@@ -257,15 +233,12 @@
 							"raw": "{\"Game\":\"382bb353448f4c4d9637263518c085b9\", \"Player\":\"48d19c8b4419409a9a63dfd1c8152db2\", \"X\":2, \"Y\":4}"
 						},
 						"url": {
-							"raw": "http://106.75.33.221:6000/api/cell/",
+							"raw": "http://{{ip}}:{{port}}/api/cell/",
 							"protocol": "http",
 							"host": [
-								"106",
-								"75",
-								"33",
-								"221"
+								"{{ip}}"
 							],
-							"port": "6000",
+							"port": "{{port}}",
 							"path": [
 								"api",
 								"cell",
