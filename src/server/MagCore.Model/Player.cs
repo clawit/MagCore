@@ -18,6 +18,8 @@ namespace MagCore.Model
 
         public string Token { get; set; } = Guid.NewGuid().ToString("N");
 
+        public int ThreadLocker = 0;
+
         private double _energy = 10;
         public int Energy
         {
@@ -52,6 +54,7 @@ namespace MagCore.Model
         {
             State = PlayerState.Leisure;
             _energy = 10;
+            ThreadLocker = 0;
             Bases = new Dictionary<string, Cell>();
             Cells = new Dictionary<string, Cell>();
         }

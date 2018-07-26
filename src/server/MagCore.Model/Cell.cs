@@ -42,12 +42,13 @@ namespace MagCore.Model
         public object Locker = new object();
 
         public Player LastOwner { get; set; }
-        public bool BeginChangeOwner(Player sender, int time)
+        public bool BeginChangeOwner(Player sender, int time, int thread)
         {
             lock (this.Locker)
             {
                 if (State == CellState.Flicke
-                    || sender.Energy < 1)
+                    || sender.Energy < 1
+                    || sender.ThreadLocker >= thread)
                     return false;
                 else
                 {
@@ -63,7 +64,10 @@ namespace MagCore.Model
                     Owner = sender;
                     if (!sender.Cells.ContainsKey(Key))
                         sender.Cells.Add(Key, this);
+
+                    Interlocked.Increment(ref sender.ThreadLocker);
                     Thread.Sleep(time);
+                    Interlocked.Decrement(ref sender.ThreadLocker);
 
                     return true;
                 }
@@ -90,15 +94,17 @@ namespace MagCore.Model
                         LastOwner.Cells.Remove(Key);
                     return true;
                 }
+                
             }
         }
 
-        public bool CanAttack(Player player)
+        public bool CanAttack(Player player, int thread)
         {
             if (this.State == CellState.Flicke
                 || this.Type == CellType.Null
                 || player.State == PlayerState.Defeat
-                || player.Energy < 1)
+                || player.Energy < 1
+                || player.ThreadLocker >= thread)
                 return false;
             else
             {
