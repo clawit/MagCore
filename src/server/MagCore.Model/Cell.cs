@@ -51,7 +51,7 @@ namespace MagCore.Model
                     return false;
                 else
                 {
-                    sender.Energy -= (int)Math.Ceiling(sender.Energy * 0.05);
+                    sender.Energy -= (int)Math.Ceiling(sender.Energy * 0.1);
                     if (sender.Energy <= 0)
                     {
                         sender.Energy = 0;

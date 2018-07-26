@@ -128,7 +128,7 @@ namespace MagCore.Core
             {
                 if (player.State == PlayerState.Playing)
                 {
-                    int val = player.Energy + (int)Math.Ceiling(player.Cells.Count / 2.0);
+                    int val = player.Energy + (int)Math.Ceiling(player.Cells.Count * 0.2);
                     if (val <= 100)
                         player.Energy = val;
                     else
