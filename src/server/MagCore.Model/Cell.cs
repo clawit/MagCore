@@ -51,13 +51,13 @@ namespace MagCore.Model
                     return false;
                 else
                 {
-                    sender.Energy -= (int)Math.Ceiling(sender.Energy * 0.1);
-                    if (sender.Energy <= 0)
+                    double inc = -0.1 * sender.Energy;
+                    if (sender.Energy + inc <= 0)
                     {
-                        sender.Energy = 0;
                         return false;
                     }
-
+                    sender.AddEnergy(inc);
+                    
                     State = CellState.Flicke;
                     LastOwner = Owner;
                     Owner = sender;
