@@ -17,11 +17,19 @@ export default class BackGround extends Sprite {
 
     this.top = 0
 
+    //按照宽度来计算高度的缩放比例
+    //console.log(screenWidth);    =>  320@iphone5
+    //var scale = screenWidth * 1.0 / BG_WIDTH;
+    //this.scaledHeight = BG_HEIGHT * scale;
+
+
     this.render(ctx)
   }
 
   update() {
-    this.top += 2
+    
+    //背景向上卷轴的速度
+    this.top += 0.25
 
     if ( this.top >= screenHeight )
       this.top = 0
@@ -34,6 +42,7 @@ export default class BackGround extends Sprite {
    * 第二张补全除了top高度之外的部分，其余的隐藏在屏幕下面
    */
   render(ctx) {
+    //console.log(this.top);
     ctx.drawImage(
       this.img,
       0,

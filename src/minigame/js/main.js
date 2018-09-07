@@ -16,10 +16,12 @@ export default class Main {
     // 维护当前requestAnimationFrame的id
     this.aniId    = 0
 
-    this.restart()
+    this.reset()
   }
 
-  restart() {
+  
+
+  reset() {
     databus.reset()
 
     canvas.removeEventListener(
@@ -28,15 +30,15 @@ export default class Main {
     )
 
     this.bg       = new BackGround(ctx)
-    this.player   = new Player(ctx)
+    //this.player   = new Player(ctx)
     this.gameinfo = new GameInfo()
     this.music    = new Music()
 
     this.bindLoop     = this.loop.bind(this)
     this.hasEventBind = false
 
-    // 清除上一局的动画
-    window.cancelAnimationFrame(this.aniId);
+    //// 清除上一局的动画
+    //window.cancelAnimationFrame(this.aniId);
 
     this.aniId = window.requestAnimationFrame(
       this.bindLoop,
@@ -44,48 +46,48 @@ export default class Main {
     )
   }
 
-  /**
-   * 随着帧数变化的敌机生成逻辑
-   * 帧数取模定义成生成的频率
-   */
-  enemyGenerate() {
-    if ( databus.frame % 30 === 0 ) {
-      let enemy = databus.pool.getItemByClass('enemy', Enemy)
-      enemy.init(6)
-      databus.enemys.push(enemy)
-    }
-  }
+  // /**
+  //  * 随着帧数变化的敌机生成逻辑
+  //  * 帧数取模定义成生成的频率
+  //  */
+  // enemyGenerate() {
+  //   if ( databus.frame % 30 === 0 ) {
+  //     let enemy = databus.pool.getItemByClass('enemy', Enemy)
+  //     enemy.init(6)
+  //     databus.enemys.push(enemy)
+  //   }
+  // }
 
-  // 全局碰撞检测
-  collisionDetection() {
-    let that = this
+  // // 全局碰撞检测
+  // collisionDetection() {
+  //   let that = this
 
-    databus.bullets.forEach((bullet) => {
-      for ( let i = 0, il = databus.enemys.length; i < il;i++ ) {
-        let enemy = databus.enemys[i]
+  //   databus.bullets.forEach((bullet) => {
+  //     for ( let i = 0, il = databus.enemys.length; i < il;i++ ) {
+  //       let enemy = databus.enemys[i]
 
-        if ( !enemy.isPlaying && enemy.isCollideWith(bullet) ) {
-          enemy.playAnimation()
-          that.music.playExplosion()
+  //       if ( !enemy.isPlaying && enemy.isCollideWith(bullet) ) {
+  //         enemy.playAnimation()
+  //         that.music.playExplosion()
 
-          bullet.visible = false
-          databus.score  += 1
+  //         bullet.visible = false
+  //         databus.score  += 1
 
-          break
-        }
-      }
-    })
+  //         break
+  //       }
+  //     }
+  //   })
 
-    for ( let i = 0, il = databus.enemys.length; i < il;i++ ) {
-      let enemy = databus.enemys[i]
+  //   for ( let i = 0, il = databus.enemys.length; i < il;i++ ) {
+  //     let enemy = databus.enemys[i]
 
-      if ( this.player.isCollideWith(enemy) ) {
-        databus.gameOver = true
+  //     if ( this.player.isCollideWith(enemy) ) {
+  //       databus.gameOver = true
 
-        break
-      }
-    }
-  }
+  //       break
+  //     }
+  //   }
+  // }
 
   // 游戏结束后的触摸事件处理逻辑
   touchEventHandler(e) {
@@ -100,7 +102,7 @@ export default class Main {
         && x <= area.endX
         && y >= area.startY
         && y <= area.endY  )
-      this.restart()
+      this.reset()
   }
 
   /**
@@ -112,19 +114,19 @@ export default class Main {
 
     this.bg.render(ctx)
 
-    databus.bullets
-          .concat(databus.enemys)
-          .forEach((item) => {
-              item.drawToCanvas(ctx)
-            })
+    // databus.bullets
+    //       .concat(databus.enemys)
+    //       .forEach((item) => {
+    //           item.drawToCanvas(ctx)
+    //         })
 
-    this.player.drawToCanvas(ctx)
+    //this.player.drawToCanvas(ctx)
 
-    databus.animations.forEach((ani) => {
-      if ( ani.isPlaying ) {
-        ani.aniRender(ctx)
-      }
-    })
+    // databus.animations.forEach((ani) => {
+    //   if ( ani.isPlaying ) {
+    //     ani.aniRender(ctx)
+    //   }
+    // })
 
     this.gameinfo.renderGameScore(ctx, databus.score)
 
@@ -147,25 +149,25 @@ export default class Main {
 
     this.bg.update()
 
-    databus.bullets
-           .concat(databus.enemys)
-           .forEach((item) => {
-              item.update()
-            })
+    // databus.bullets
+    //        .concat(databus.enemys)
+    //        .forEach((item) => {
+    //           item.update()
+    //         })
 
-    this.enemyGenerate()
+    // this.enemyGenerate()
 
-    this.collisionDetection()
+    //this.collisionDetection()
 
-    if ( databus.frame % 20 === 0 ) {
-      this.player.shoot()
-      this.music.playShoot()
-    }
+    // if ( databus.frame % 20 === 0 ) {
+    //   this.player.shoot()
+    //   this.music.playShoot()
+    // }
   }
 
   // 实现游戏帧循环
   loop() {
-    databus.frame++
+    //databus.frame++
 
     this.update()
     this.render()
