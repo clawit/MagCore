@@ -12,7 +12,14 @@ let databus = new DataBus()
  * 游戏主函数
  */
 export default class Main {
-  constructor() {
+  constructor(gid) {
+    console.log('gid:' + gid);
+    if (gid != undefined && gid.length > 0){
+      
+    }
+
+
+
     // 维护当前requestAnimationFrame的id
     this.aniId    = 0
 
