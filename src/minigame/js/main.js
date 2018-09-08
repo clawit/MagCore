@@ -4,6 +4,7 @@ import BackGround from './runtime/background'
 import GameInfo   from './runtime/gameinfo'
 import Music      from './runtime/music'
 import DataBus    from './databus'
+import Monitor    from './monitor/monitor.js'
 
 let ctx   = canvas.getContext('2d')
 let databus = new DataBus()
@@ -12,18 +13,17 @@ let databus = new DataBus()
  * 游戏主函数
  */
 export default class Main {
-  constructor(gid) {
-    console.log('gid:' + gid);
-    if (gid != undefined && gid.length > 0){
-      
-    }
-
-
-
+  constructor(gcode) {
+    
     // 维护当前requestAnimationFrame的id
     this.aniId    = 0
 
     this.reset()
+
+    console.log('gcode:' + gcode);
+    if (gcode != undefined && gcode.length > 0) {
+      databus.scene = 'monitor';
+    }
   }
 
   
@@ -135,7 +135,13 @@ export default class Main {
     //   }
     // })
 
-    this.gameinfo.renderGameScore(ctx, databus.score)
+    //this.gameinfo.renderGameScore(ctx, databus.score)
+
+    if (databus.scene == 'monitor' && this.monitor != undefined) {
+        this.monitor.render(ctx);
+      }
+    
+      
 
     // 游戏结束停止帧循环
     if ( databus.gameOver ) {
@@ -155,6 +161,13 @@ export default class Main {
       return;
 
     this.bg.update()
+
+    if (databus.scene == 'monitor') {
+      if (this.monitor == undefined) {
+        this.monitor = new Monitor();
+      }
+      this.monitor.update();
+    }
 
     // databus.bullets
     //        .concat(databus.enemys)
