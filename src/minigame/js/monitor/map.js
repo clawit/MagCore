@@ -33,6 +33,8 @@ export default class Map extends Sprite {
         console.log(response);
         self.rows = response.data.Rows;
         self.edgeLength = 1.0 * (screenWidth - 10) / self.rows[0].length;
+
+        wx.hideLoading();
       }
     })
   }
@@ -45,8 +47,16 @@ export default class Map extends Sprite {
         for (var j = 0; j < row.length; j++){
           var cell = row[j];
 
+          var img = undefined;
+          if(cell == '0') {
+            img = this.imgEmpty;
+          }
+          else if (cell == '1'){
+            img = this.imgRect;
+          }
+
           ctx.drawImage(
-            this.imgRect,
+            img,
             0,
             0,
             IMG_WIDTH,
