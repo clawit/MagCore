@@ -23,6 +23,7 @@ export default class Main {
     console.log('gcode:' + gcode);
     if (gcode != undefined && gcode.length > 0) {
       databus.scene = 'monitor';
+      databus.gcode = gcode;
     }
   }
 

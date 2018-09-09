@@ -18,13 +18,19 @@ export default class DataBus {
   }
 
   reset() {
+    this.baseUrl = 'http://106.75.33.221:7000/'
     this.scene = 'menu'
-    //this.frame      = 0
     this.score      = 0
+    this.gameOver   = false
+    this.gcode      = ''
+    this.gid        = ''
+    this.game       = undefined
+
+
+    //this.frame      = 0
     //this.bullets    = []
     //this.enemys     = []
     //this.animations = []
-    this.gameOver   = false
   }
 
   // /**
