@@ -12,15 +12,25 @@ namespace MagCore.Server.Controllers
 {
     [Route("api/[controller]")]
     public class WxGameController : Controller
-    { 
-        // GET api/game/5b4512fb673f4a638fe2907b7483c0ab
+    {
+        // GET api/WxGame/5b4512fb673f4a638fe2907b7483c0ab
         [HttpGet("{id}")]
         public ActionResult Get(string id)
         {
             try
             {
+                var game = Core.Server.Game(id);
+                if (game == null)
+                    return new ContentResult() { StatusCode = (int)HttpStatusCode.NotFound};
+
+                if (game.GameCode != null)
+                    return new FileContentResult(game.GameCode, "image/jpeg");
+                
                 var content = WxMiniGame.GetGameCode(id);
                 var result = content.ReadAsByteArrayAsync().Result;
+
+                game.GameCode = result;
+
                 return new FileContentResult(result, "image/jpeg");
             } 
             catch (Exception ex)
@@ -29,7 +39,7 @@ namespace MagCore.Server.Controllers
             }
         }
 
-        // GET api/game/Y5b4512fb673f4/id
+        // GET api/WxGame/Y5b4512fb673f4/id
         [HttpGet("{code}/id")]
         public ContentResult GetId(string code)
         {
