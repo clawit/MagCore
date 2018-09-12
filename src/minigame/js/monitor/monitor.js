@@ -23,7 +23,7 @@ export default class Monitor extends Sprite {
 
     //TODO: transfer gcode to gid
     // 以下语句模拟最后的返回情况, 要完成以上TODO
-    databus.gid = '7fde62d46669467cbac5bae5f9c03010';
+    databus.gid = 'f76d80aec953429d8396d48f7227b51f';
 
     //load map
     wx.request({

@@ -43,7 +43,7 @@ namespace MagCore.Server
                         }
                     }
                     else
-                        options.Listen(IPAddress.Any, 6000);
+                        options.Listen(IPAddress.Any, 8000);
 
                 })
                 .Build();

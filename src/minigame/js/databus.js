@@ -18,7 +18,8 @@ export default class DataBus {
   }
 
   reset() {
-    this.baseUrl = 'http://106.75.33.221:7000/'
+    this.baseUrl = 'http://localhost:8000/'
+    //this.baseUrl = 'http://106.75.33.221:7000/'
     this.scene = 'menu'
     this.score      = 0
     this.gameOver   = false
