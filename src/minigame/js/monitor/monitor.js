@@ -21,7 +21,7 @@ export default class Monitor extends Sprite {
 
     //TODO: transfer gcode to gid
     // 以下语句模拟最后的返回情况, 要完成以上TODO
-    databus.gid = '9116bdc745ac4030a3ba7644aad9f080';
+    databus.gid = '1524726e40a34b059e8ca375cf5f9481';
 
     //load game
     this.game = new Game(databus.gid);

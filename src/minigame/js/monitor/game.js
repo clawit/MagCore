@@ -112,8 +112,8 @@ export default class Game extends Sprite {
       //console.log(databus.game)
 
       //如果游戏状态是1 (游戏中)
-      if(databus.game.State == 1){
-        renderCells(ctx);
+      if(databus.game.State == 0){
+        this.renderCells(ctx);
 
       }
     }
@@ -126,10 +126,31 @@ export default class Game extends Sprite {
       var row = databus.game.Cells[i];
       for (var j = 0; j < row.length; j++) {
         var cell = row[j];
+
+        //如果类型是2(基地)
+        if(cell.Type == 2){
+          //console.log(i);
+          //console.log(j);
+          console.log(cell);
+          //需要覆盖一下此cell, 突出基地
+          //console.log(5 +(j * this.edgeLength));
+          //console.log((screenHeight - (databus.game.Cells.length * this.edgeLength)) / 2.0 +(i * this.edgeLength));
+          ctx.drawImage(
+            this.imgBase,
+            0,
+            0,
+            IMG_WIDTH,
+            IMG_HEIGHT,
+            5 +
+            (j * this.map.edgeLength),
+            (screenHeight - (databus.game.Cells.length * this.map.edgeLength)) / 2.0 +
+            (i * this.map.edgeLength),
+            this.map.edgeLength,
+            this.map.edgeLength
+          )
+        }
+
         var img = undefined;
-
-
-
 
       }
     }
