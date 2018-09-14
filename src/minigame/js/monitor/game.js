@@ -26,9 +26,11 @@ let databus = new DataBus()
 
 var worker = wx.createWorker('workers/request/index.js') // 文件名指定 worker 的入口文件路径，绝对路径
 worker.onMessage(function (msg) {
-  console.log('worker msg data received at main thread');
-  //console.log(msg);
+  
   databus.game = JSON.parse(msg.data);
+
+  //console.log('worker msg data received at main thread');
+  console.log(databus.game);
 })
 
 export default class Game extends Sprite {
@@ -89,7 +91,7 @@ export default class Game extends Sprite {
   update(){
     if (databus.game != undefined) {
       //如果游戏状态是0 (等待中)
-      if(databus.game.State == 0) {
+      if(databus.game.State >= 0) {
         //每次都要更新玩家
         //console.log(databus.game.Players);
         databus.players = new Array();
@@ -112,7 +114,7 @@ export default class Game extends Sprite {
       //console.log(databus.game)
 
       //如果游戏状态是1 (游戏中)
-      if(databus.game.State == 0){
+      if(databus.game.State >= 0){
         this.renderCells(ctx);
 
       }
@@ -131,10 +133,8 @@ export default class Game extends Sprite {
         if(cell.Type == 2){
           //console.log(i);
           //console.log(j);
-          console.log(cell);
+          //console.log(cell);
           //需要覆盖一下此cell, 突出基地
-          //console.log(5 +(j * this.edgeLength));
-          //console.log((screenHeight - (databus.game.Cells.length * this.edgeLength)) / 2.0 +(i * this.edgeLength));
           ctx.drawImage(
             this.imgBase,
             0,
@@ -151,7 +151,69 @@ export default class Game extends Sprite {
         }
 
         var img = undefined;
+        //单元格中玩家状态绘制(1=闪烁,2=被占领)
+        if(cell.State >= 1){
+          var owner = cell.Owner;
+          var player = databus.players[owner];
+          var color = player.Color;
+          //console.log(color)
+          switch(color){
+            case 0:
+              img = this.img0;
+              break;
+            case 1:
+              img = this.img1;
+              break;
+            case 2:
+              img = this.img2;
+              break;
+            case 3:
+              img = this.img3;
+              break;
+            case 4:
+              img = this.img4;
+              break;
+            case 5:
+              img = this.img5;
+              break;
+            case 6:
+              img = this.img6;
+              break;
+            case 7:
+              img = this.img7;
+              break;
+            case 8:
+              img = this.img8;
+              break;
+            case 9:
+              img = this.img9;
+              break;
+            default:
+              break;
+          }
+          //console.log(databus.frame);
+          if(cell.State == 1){
+            if(databus.frame > 30)
+              return;
+          }
+          
+          ctx.drawImage(
+            img,
+            0,
+            0,
+            IMG_WIDTH,
+            IMG_HEIGHT,
+            5 +
+            (j * this.map.edgeLength),
+            (screenHeight - (databus.game.Cells.length * this.map.edgeLength)) / 2.0 +
+            (i * this.map.edgeLength),
+            this.map.edgeLength,
+            this.map.edgeLength
+          )
 
+          
+
+        }
       }
     }
   }

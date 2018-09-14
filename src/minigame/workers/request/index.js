@@ -33,10 +33,11 @@ function loadUrl(url) {
         data: xhttp.response
       })
 
-      sleep(5000);
+      sleep(500);
     }
   };
-  xhttp.open("GET", url, true);
+  //console.log(url);
+  xhttp.open("GET", url, false);
   xhttp.send();
 }
 
@@ -58,9 +59,7 @@ function onProcess(msg){
     //   }
     // })
 
-    var i = 0;
-    while(i < 10){
-      i++;
+    while(true){
       loadUrl(msg.url);
       
     }

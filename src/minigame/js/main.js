@@ -188,7 +188,10 @@ export default class Main {
 
   // 实现游戏帧循环
   loop() {
-    //databus.frame++
+    if (databus.frame > 60)
+      databus.frame = 0;
+    else
+      databus.frame++
 
     this.update()
     this.render()

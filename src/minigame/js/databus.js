@@ -28,7 +28,7 @@ export default class DataBus {
     this.game       = undefined
     this.players    = undefined
 
-    //this.frame      = 0
+    this.frame      = 0
     //this.bullets    = []
     //this.enemys     = []
     //this.animations = []
