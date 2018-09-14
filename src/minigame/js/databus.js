@@ -26,7 +26,7 @@ export default class DataBus {
     this.gcode      = ''
     this.gid        = ''
     this.game       = undefined
-
+    this.players    = undefined
 
     //this.frame      = 0
     //this.bullets    = []

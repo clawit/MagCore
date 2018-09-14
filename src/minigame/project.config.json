@@ -30,7 +30,7 @@
 				{
 					"id": 0,
 					"name": "观战",
-					"query": "scene=monitor_10088",
+					"query": "scene=m_10088",
 					"scene": "1048"
 				}
 			]
