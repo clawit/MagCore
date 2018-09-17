@@ -16,7 +16,7 @@ namespace MagCore.Server.WxApi
                 string token = WxBase.GetAccessToken();
                 string gcode = GuidCompacter.Compact(gid);
 
-                string parms = string.Format("{{\"scene\":\"m_{0}\", \"auto_color\": true, \"width\": 256}}", gcode);
+                string parms = string.Format("{{\"scene\":\"m-{0}\", \"auto_color\": true, \"width\": 256}}", gcode);
                 var content = new StringContent(parms, Encoding.UTF8, "application/json");
 
                 var client = new HttpClient() { BaseAddress = new Uri(WxBase.BaseUrl) };

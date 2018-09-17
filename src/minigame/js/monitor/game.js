@@ -68,6 +68,8 @@ export default class Game extends Sprite {
 
     this.gameId = id;
 
+    this.error = undefined;
+
     console.log('loading game info:' + id);
     //load game
     wx.request({
@@ -76,6 +78,11 @@ export default class Game extends Sprite {
       success: function (response) {
         console.log('game response recevied:');
         console.log(response);
+        if (response.data.Map == undefined){
+          wx.showToast({title: '无法定位该游戏'});
+          self.error = '无法定位该游戏';
+          return;
+        }
         var mapName = response.data.Map;
         self.map = new Map(mapName);
 

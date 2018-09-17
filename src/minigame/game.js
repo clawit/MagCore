@@ -16,7 +16,7 @@ wx.onShow(function (option) {
     let scene_arg2 = scene_args.substring(2); //从第2位开始截字符
     console.log('scene_arg1:' + scene_arg1);
     console.log('scene_arg2:' + scene_arg2);
-    if (scene_arg1 == 'm_' && scene_arg2 != ''){
+    if (scene_arg1 == 'm-' && scene_arg2 != ''){
       new Main(scene_arg2);
       return;
     }

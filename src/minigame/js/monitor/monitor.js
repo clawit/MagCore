@@ -19,12 +19,35 @@ export default class Monitor extends Sprite {
       mask: true
     })
 
-    //TODO: transfer gcode to gid
+    //TODO: transfer databus.gcode to gid
     // 以下语句模拟最后的返回情况, 要完成以上TODO
-    databus.gid = 'fa5a61b04e1b4b69995f5ede749129ee';
+    wx.request({
+      url: databus.baseUrl + 'api/wxgame/' + databus.gcode + '/id',
+      method: 'GET',
+      success: function (response) {
+        console.log('wxgame response recevied:');
+        console.log(response);
+        if (response.statusCode == 400) {
+          wx.showToast({ title: response.data });
+          
+          return;
+        }
+        else{
+          databus.gid = response.data.toLowerCase();
 
-    //load game
-    this.game = new Game(databus.gid);
+          //load game
+          self.game = new Game(databus.gid);
+          //console.log(self.game);
+          if (self.game == undefined || self.game.error != undefined) {
+            return;
+          }
+
+        }
+
+      }
+    })
+
+    
 
   }
 

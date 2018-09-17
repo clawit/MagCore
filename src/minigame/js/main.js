@@ -41,6 +41,7 @@ export default class Main {
     //this.player   = new Player(ctx)
     this.gameinfo = new GameInfo()
     this.music    = new Music()
+    this.monitor = undefined;
 
     this.bindLoop     = this.loop.bind(this)
     this.hasEventBind = false
