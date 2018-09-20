@@ -48,7 +48,7 @@ body, html {
     list-style: none;
     width: 5%;
     height: 18.75px;
-    
+    background-image: url(../images/Rect.png)
   }
 
   .map ul li img {
