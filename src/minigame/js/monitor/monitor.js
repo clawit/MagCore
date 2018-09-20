@@ -19,8 +19,7 @@ export default class Monitor extends Sprite {
       mask: true
     })
 
-    //TODO: transfer databus.gcode to gid
-    // 以下语句模拟最后的返回情况, 要完成以上TODO
+    //transfer databus.gcode to gid
     wx.request({
       url: databus.baseUrl + 'api/wxgame/' + databus.gcode + '/id',
       method: 'GET',

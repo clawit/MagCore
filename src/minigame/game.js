@@ -3,6 +3,21 @@ import './js/libs/symbol'
 
 import Main from './js/main'
 
+wx.getSetting({
+  success(res) {
+    if (!res.authSetting['scope.record']) {
+      wx.authorize({
+        scope: 'scope.userInfo',
+        success() {
+          // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+          wx.startRecord()
+        }
+      })
+    }
+  }
+})
+
+
 // var launch = wx.getLaunchOptionsSync()
 // console.log(launch.query.scene)
 // 以上代码等效于下方代码
