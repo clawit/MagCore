@@ -1,0 +1,3 @@
+var databus = {
+    game: undefined,
+};
