@@ -1,18 +1,20 @@
 
-//var baseUrl = 'http://api.magcore.clawit.com/';
-var baseUrl = 'http://localhost:8000/';
-
-var mapApi = baseUrl + 'api/map/';
-var gameApi = baseUrl + 'api/game/';
-
 $(function() {
     FastClick.attach(document.body);
 });
 
 $(function() {
+    //获取查询字符串,读取gid
+    var queries = {};
+    $.each(document.location.search.substr(1).split('&'),function(c,q){
+        var i = q.split('=');
+        queries[i[0]] = i[1];
+    });
+    console.log(queries);
+
     $.showLoading();
 
-    loadGame('e97b72ac913342c4abee5b4e1c285185');
+    loadGame(queries.gid);
 
 });
 
@@ -22,13 +24,14 @@ var OnError = function(rr) {
     $.hideLoading();
 }
 
-var loadMap = function(map) {
+var loadMap = function(game) {
+    let map = game.Map;
     //清理
     $('#map').empty();
 
     //获取map
     $.ajax({
-        url: mapApi + map,
+        url: databus.mapApi + map,
         type: "GET",
         dataType: 'json',
         success: function(data) {
@@ -46,10 +49,11 @@ var loadMap = function(map) {
                 //create cells
                 for (let j = 0; j < row.length; j++) {
                     const cell = row[j];
-                    var idLi = 'li-' + j + '-' +i;
-                    var $li = $('<li id="' + idLi + '"></li>');
+                    let idLi = 'li-' + j + '-' +i;
+                    let idImg = 'img-' + j + '-' +i;
+                    let $li = $('<li id="' + idLi + '"></li>');
 
-                    var $img = $('<img />');
+                    let $img = $('<img id="' + idImg + '" />');
                     $li.append($img);
                     $ul.append($li);
 
@@ -82,7 +86,10 @@ var loadMap = function(map) {
             }
     
             //开始重绘线程
-            startWorker();
+            if(databus.inited == false){
+                startWorker(game);
+                databus.inited = true;
+            }
 
             //隐藏loading
             $.hideLoading();
@@ -97,20 +104,74 @@ var loadMap = function(map) {
 
 var loadGame = function(gid) {
     $.ajax({
-        url: gameApi + gid,
+        url: databus.gameApi + gid,
         type: "GET",
         dataType: 'json',
         success: function(data) {
             console.log('get game success');
             console.log(data);
-            
-            //首次加载游戏时要先加载地图
-            if(databus.game == undefined){
-                loadMap(data.Map);
+
+            if(data.Map == undefined){
+                $.hideLoading();
+                $.toast("无法定位游戏", 'cancel');
+                return;
             }
 
             databus.game = data;
+
+            //首次加载游戏时要先加载地图
+            if(databus.inited == false){
+                loadMap(data);
+            }
+
         },
         error: OnError
     });
+}
+
+var update = function(){
+    let game = databus.game;
+    if(game.State != undefined && game.State == 0) {
+        //更新players信息
+        databus.players = new Array();
+        for (var i = 0; i < game.Players.length; i++){
+          var p = game.Players[i];
+          databus.players[p.Index] = p;
+        }
+    }
+}
+
+var render = function(){
+    let game = databus.game;
+    if(game.State != undefined && game.State < 3) {
+        for (let i = 0; i < game.Cells.length; i++) {
+            const row = game.Cells[i];
+            
+            for (let j = 0; j < row.length; j++) {
+                const cell = row[j];
+                
+                let idLi = 'li-' + j + '-' +i;
+                let idImg = 'img-' + j + '-' +i;
+                let $li = $('#' + idLi);
+                let $img = $('#' + idImg);
+
+                //设置基地
+                if(cell.Type == 2 && $li != undefined ) {
+                    $li.css({ 
+                        "background-image": "url(../assets/images/Base.png)"
+                   });
+                }
+
+                //设置玩家占领
+                if(cell.State > 0 && $img != undefined) {
+                    let owner = cell.Owner;
+                    let player = databus.players[owner];
+                    let color = player.Color;
+                    let icon = databus.icons[color];
+                    $img.attr('src', icon) 
+                }
+            }
+        }
+    }
+    
 }

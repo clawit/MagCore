@@ -1,20 +1,36 @@
-var w;
+var worker = undefined;
 
-function startWorker() {
+function startWorker(game) {
     if(typeof(Worker) !== "undefined") {
-        if(typeof(w) == "undefined") {
-            w = new Worker("game-worker.js");
+        if(typeof(worker) == "undefined") {
+            worker = new Worker("http://monitor.magcore.clawit.com/assets/js/game-worker.js");
+            worker.postMessage(game);
         }
-        w.onmessage = function(event) {
-            console.log('Worker msg recevied');
-            console.log(event.data);
+        worker.onmessage = function(event) {
+            //console.log('Worker msg recevied');
+            //console.log(event.data);
+
+            if(event.data == 'stopWorker()') {
+                stopWorker();
+            }
+            else {
+                databus.game = JSON.parse(event.data);
+            }
+            
+            if(databus.game.Status >= 2) {
+                stopWorker();
+            }
+
+            update();
+            render();
         };
     } else {
-        document.getElementById("result").innerHTML = "Sorry! No Web Worker support.";
+        $.toast("浏览器不支持", 'cancel');
     }
 }
 
 function stopWorker() { 
-    w.terminate();
-    w = undefined;
+    console.log('stopping worker...');
+    worker.terminate();
+    worker = undefined;
 }
