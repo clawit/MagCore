@@ -160,6 +160,8 @@ var update = function(game){
     
     if(game.State != undefined && game.State < 2
         && (databus.players.length - 1) != game.Players.length ) {
+        if(databus.players.length == 0 && game.Players.length == 0)
+            return;
         //更新players信息
         databus.players = new Array();
         for (var i = 0; i < game.Players.length; i++){

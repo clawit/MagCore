@@ -3,7 +3,7 @@ var worker = undefined;
 function startWorker(game) {
     if(typeof(Worker) !== "undefined") {
         if(typeof(worker) == "undefined") {
-            worker = new Worker("http://monitor.magcore.clawit.com/assets/js/game-worker.js");
+            worker = new Worker("../assets/js/game-worker.js");
             worker.postMessage(game);
         }
         worker.onmessage = function(event) {

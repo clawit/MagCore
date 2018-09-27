@@ -1,5 +1,5 @@
 var databus = {
-    imgUrl: 'http://monitor.magcore.clawit.com/assets/images/',
+    imgUrl: 'http://magcore.clawit.com/assets/images/',
     apiUrl: 'http://api.magcore.clawit.com/',
     //apiUrl: 'http://localhost:8000/',
     mapApi: undefined,
