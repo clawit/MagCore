@@ -8,7 +8,7 @@ var databus = {
     inited: false,
 
     game: undefined,
-    players: undefined,
+    players: new Array(),
 
     icons: new Array()
 };

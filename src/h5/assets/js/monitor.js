@@ -129,15 +129,46 @@ var loadGame = function(gid) {
     });
 }
 
-var update = function(){
-    let game = databus.game;
-    if(game.State != undefined && game.State == 0) {
+var update = function(game){
+    //游戏状态改变
+    let state = '游戏状态: ';
+    if(game.State != databus.game.State || $('#descState').html() == '' ){
+        switch (game.State) {
+            case 0:
+                state += '等待中';
+                break;
+            case 1:
+                state += '游戏开始';
+                break;
+            case 2:
+                state += '已结束';
+                break;
+            case 3:
+                state += '已销毁';
+                break;
+            default:
+                break;
+        }
+
+        $('#descState').html(state);
+    }
+
+    //更新到databus
+    databus.game = game;
+    
+    if(game.State != undefined && game.State < 2
+        && (databus.players.length - 1) != game.Players.length ) {
         //更新players信息
         databus.players = new Array();
         for (var i = 0; i < game.Players.length; i++){
           var p = game.Players[i];
           databus.players[p.Index] = p;
         }
+
+        //
+        let content = '当前参赛: ' + game.Players.length + '人';
+        
+        $('#descPlayers').html(content);
     }
 }
 
@@ -168,6 +199,19 @@ var render = function(){
                     let player = databus.players[owner];
                     let color = player.Color;
                     let icon = databus.icons[color];
+
+                    if(cell.State == 1) {
+                        let src = $img.attr('src');
+                        //console.log('cell.State == 1');
+                        //console.log(src);
+                        if(src != undefined && src.indexOf('_blink.png') < 0){
+                            icon = icon.replace('.png', '_blink.png');
+
+                            //console.log('icon replaced.');
+                            //console.log(icon);
+                        }
+                    }
+                    
                     $img.attr('src', icon) 
                 }
             }

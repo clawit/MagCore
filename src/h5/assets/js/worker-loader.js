@@ -12,16 +12,16 @@ function startWorker(game) {
 
             if(event.data == 'stopWorker()') {
                 stopWorker();
+                return;
             }
-            else {
-                databus.game = JSON.parse(event.data);
-            }
+
+            let game = JSON.parse(event.data);
             
             if(databus.game.Status >= 2) {
                 stopWorker();
             }
 
-            update();
+            update(game);
             render();
         };
     } else {

@@ -5,12 +5,16 @@ body, html {
 
   .monitor-title {
     text-align: center;
-    font-size: 34px;
+    font-size: 24px;
     color: #3cc51f;
     font-weight: 400;
     margin: 0 15%;
   }
   
+  .monitor-sub-line {
+    text-align: center;
+  }
+
   .monitor-sub-title {
     text-align: center;
     color: #888;
@@ -18,13 +22,13 @@ body, html {
   }
   
   .monitor-header {
-    padding: 35px 0;
+    padding: 0;
   }
   
   footer {
     text-align: center;
     font-size: 14px;
-    padding: 20px;
+    padding: 10px;
   }
   
   footer a {
@@ -33,7 +37,7 @@ body, html {
   }
   
   .weui-footer {
-    margin: 25px 0 10px 0;
+    margin: 0;
   }
 
   .map ul {
