@@ -22,6 +22,8 @@ var OnError = function(rr) {
     console.log('Error');
 
     $.hideLoading();
+
+    $.toast("无法定位游戏", 'cancel');
 }
 
 var loadMap = function(game) {

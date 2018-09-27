@@ -1,7 +1,7 @@
 var databus = {
     imgUrl: 'http://monitor.magcore.clawit.com/assets/images/',
-    //baseUrl = 'http://api.magcore.clawit.com/',
-    apiUrl: 'http://localhost:8000/',
+    apiUrl: 'http://api.magcore.clawit.com/',
+    //apiUrl: 'http://localhost:8000/',
     mapApi: undefined,
     gameApi: undefined,
 
