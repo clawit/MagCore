@@ -1,72 +1,21 @@
 {
 	"info": {
-		"_postman_id": "d64e938b-06c0-4ead-a264-332ce6904f09",
+		"_postman_id": "a4ee3e3b-56ed-4c24-8a3d-b34629b00369",
 		"name": "MagCore",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Game",
-			"description": "",
 			"item": [
 				{
-					"name": "NewGame",
+					"name": "StartGame",
 					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"Map\":\"RectMid\"}"
-						},
-						"url": {
-							"raw": "http://{{ip}}:{{port}}/api/game",
-							"protocol": "http",
-							"host": [
-								"{{ip}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"api",
-								"game"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GameList",
-					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://{{ip}}:{{port}}/api/game",
-							"protocol": "http",
-							"host": [
-								"{{ip}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"api",
-								"game"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetGame",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://{{ip}}:{{port}}/api/game/55d0b30c1f8740928307ae5ad8f1b7a4",
+							"raw": "http://{{ip}}:{{port}}/api/game/d665d0778be443a7a01ab12a45566d9f",
 							"protocol": "http",
 							"host": [
 								"{{ip}}"
@@ -75,7 +24,7 @@
 							"path": [
 								"api",
 								"game",
-								"55d0b30c1f8740928307ae5ad8f1b7a4"
+								"d665d0778be443a7a01ab12a45566d9f"
 							]
 						}
 					},
@@ -112,13 +61,13 @@
 					"response": []
 				},
 				{
-					"name": "StartGame",
+					"name": "GetGame",
 					"request": {
-						"method": "PUT",
+						"method": "GET",
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://{{ip}}:{{port}}/api/game/d665d0778be443a7a01ab12a45566d9f",
+							"raw": "http://{{ip}}:{{port}}/api/game/55d0b30c1f8740928307ae5ad8f1b7a4",
 							"protocol": "http",
 							"host": [
 								"{{ip}}"
@@ -127,20 +76,35 @@
 							"path": [
 								"api",
 								"game",
-								"d665d0778be443a7a01ab12a45566d9f"
+								"55d0b30c1f8740928307ae5ad8f1b7a4"
 							]
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Player",
-			"description": "",
-			"item": [
+				},
 				{
-					"name": "NewPlayer",
+					"name": "GameList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{ip}}:{{port}}/api/game",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"game"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "NewGame",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -151,10 +115,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"Name\":\"Cola\", \"Color\":0}"
+							"raw": "{\"Map\":\"RectPhone\"}"
 						},
 						"url": {
-							"raw": "http://{{ip}}:{{port}}/api/player",
+							"raw": "http://{{ip}}:{{port}}/api/game",
 							"protocol": "http",
 							"host": [
 								"{{ip}}"
@@ -162,29 +126,7 @@
 							"port": "{{port}}",
 							"path": [
 								"api",
-								"player"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetPlayer",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://{{ip}}:{{port}}/api/player/784f7580cfba4344b039edecb8876dda",
-							"protocol": "http",
-							"host": [
-								"{{ip}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"api",
-								"player",
-								"784f7580cfba4344b039edecb8876dda"
+								"game"
 							]
 						}
 					},
@@ -194,7 +136,6 @@
 		},
 		{
 			"name": "Map",
-			"description": "",
 			"item": [
 				{
 					"name": "GetMap",
@@ -243,6 +184,149 @@
 								"api",
 								"cell",
 								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Player",
+			"item": [
+				{
+					"name": "GetPlayer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{ip}}:{{port}}/api/player/784f7580cfba4344b039edecb8876dda",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"player",
+								"784f7580cfba4344b039edecb8876dda"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "NewPlayer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"Name\":\"Cola\", \"Color\":0}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{port}}/api/player",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"player"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "WxGame",
+			"item": [
+				{
+					"name": "GetCodeForWxDebug",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"scene\":\"m_1Y03UP4YQEY642U90HHMPKW9HS\", \"auto_color\": true, \"width\": 256}"
+						},
+						"url": {
+							"raw": "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=13_1NpMveQQTuIdrxHlWoVMnmyOMnrcP2jazVQOmNff0G9injjQZ9yGCFD0hPfYoO-aaJ39mubslgV3ZxWXVTBbkZPHndre_O7wes80oJD_C07RRj1PS6BQzJ5JYGnz5SLi-Qx7QwWEQXVjAK_DSREiAJAXWJ",
+							"protocol": "https",
+							"host": [
+								"api",
+								"weixin",
+								"qq",
+								"com"
+							],
+							"path": [
+								"wxa",
+								"getwxacodeunlimit"
+							],
+							"query": [
+								{
+									"key": "access_token",
+									"value": "13_1NpMveQQTuIdrxHlWoVMnmyOMnrcP2jazVQOmNff0G9injjQZ9yGCFD0hPfYoO-aaJ39mubslgV3ZxWXVTBbkZPHndre_O7wes80oJD_C07RRj1PS6BQzJ5JYGnz5SLi-Qx7QwWEQXVjAK_DSREiAJAXWJ"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCode",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{ip}}:{{port}}/api/wxgame/f76d80aec953429d8396d48f7227b51f",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"wxgame",
+								"f76d80aec953429d8396d48f7227b51f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UncompactCode",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{ip}}:{{port}}/api/wxgame/f76d80aec953429d8396d48f7227b51f/id",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"wxgame",
+								"f76d80aec953429d8396d48f7227b51f",
+								"id"
 							]
 						}
 					},

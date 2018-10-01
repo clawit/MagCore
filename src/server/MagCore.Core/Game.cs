@@ -30,6 +30,8 @@ namespace MagCore.Core
 
         internal DateTime CreateTime { get; set; } = DateTime.Now;
 
+        public byte[] GameCode = null;
+
         public string ToJson()
         {
             string json = "{{\"Id\":\"{0}\", \"Map\":\"{1}\", \"State\":{2}, \"Players\":[{3}], \"Cells\":{4}}}";

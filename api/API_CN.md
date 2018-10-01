@@ -36,10 +36,16 @@ Y坐标相同的所有单元构成一行.
 [PostMan脚本下载](/script/MagCore.postman_collection.json)
 
 
+## 如何开始
+1. 阅读API文档， 理解游戏概念
+2. 随意使用任何编程语言， 实现通过调用API来操作游戏动作
+3. 编写自己的进攻或防守策略， 在游戏开始后与其他玩家的AI对决
+
+
 ## API
 
 ### 服务器BaseUrl
-ht<span></span>tp://106.75.33.221:6000/
+ht<span></span>tp://api.magcore.clawit.com/
 
 ### 状态说明
 [数据结构概念及状态说明](/api/DataMap_CN.md)

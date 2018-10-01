@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>磁芯大战 - 观战</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="A Magcore game for programmer">
+
+    <link rel="stylesheet" href="../assets/lib/weui.min.css">
+    <link rel="stylesheet" href="../assets/css/jquery-weui.css">
+    <link rel="stylesheet" href="../assets/css/monitor.css">
+  </head>
+
+  <body ontouchstart>
+
+    <header class='monitor-header'>
+      <!-- <h1 class="monitor-title">观战中</h1> -->
+      <p class='monitor-sub-line'>
+          <span id='descPlayers' class='monitor-sub-title'></span>
+          &nbsp;&nbsp;
+          <span id='descState' class='monitor-sub-title'></span>
+      </p>
+      
+    </header>
+
+    <div class="map" id="map">
+      <!--以下这段是格式示例-->
+      <!--
+      <ul>
+        <li>
+          <img src="../assets/images/Banana.png" />
+        </li>
+        <li>
+            <img src="../assets/images/Banana.png" />
+        </li>
+      </ul>
+      <ul>
+          <li>
+            <img src="../assets/images/Banana.png" />
+          </li>
+          <li>
+              <img src="../assets/images/Banana.png" />
+          </li>
+      </ul>
+      -->
+    </div>
+
+    <footer class="weui-footer">
+      <!-- <p class="weui-footer__links">
+        <a href="http://magcore.clawit.com" class="weui-footer__link">首页</a>
+      </p> -->
+      <p class="weui-footer__text">Copyright © 2018 magcore.clawit.com</p>
+    </footer>
+
+
+    <script src="../assets/lib/jquery-2.1.4.js"></script>
+    <script src="../assets/lib/fastclick.js"></script>
+    <script src="../assets/js/jquery-weui.js"></script>
+    <script src="../assets/js/databus.js"></script>
+    <script src="../assets/js/worker-loader.js"></script>
+    <script src="../assets/js/monitor.js"></script>
+  </body>
+
+</html>
