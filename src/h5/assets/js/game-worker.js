@@ -4,6 +4,9 @@ onmessage =function (evt){
     var game = evt.data;//通过evt.data获得发送来的数据
     // console.log('game worker msg received.');
     // console.log(evt);
+
+    setServer(game.Server);
+
     while(true){
         loadGame(game.Id);
 
@@ -11,7 +14,17 @@ onmessage =function (evt){
     }
   }
 
-
+  var setServer = function(svr){
+    databus.server = svr;
+    if(svr == 'dev') {
+        databus.apiUrl = 'http://dev.magcore.clawit.com/';
+    }
+    else if (svr == 'test') {
+        databus.apiUrl = 'http://test.magcore.clawit.com/';
+    }
+    databus.mapApi = databus.apiUrl + 'api/map/';
+    databus.gameApi = databus.apiUrl + 'api/game/';
+}
 
 var loadGame = function(gid) {
     //console.log('loading game');

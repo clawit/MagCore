@@ -14,6 +14,10 @@ $(function() {
 
     $.showLoading();
 
+    //set server
+    setServer(queries.svr);
+
+    //
     loadGame(queries.gid);
 
 });
@@ -24,6 +28,18 @@ var OnError = function(rr) {
     $.hideLoading();
 
     $.toast("无法定位游戏", 'cancel');
+}
+
+var setServer = function(svr){
+    databus.server = svr;
+    if(svr == 'dev') {
+        databus.apiUrl = 'http://dev.magcore.clawit.com/';
+    }
+    else if (svr == 'test') {
+        databus.apiUrl = 'http://test.magcore.clawit.com/';
+    }
+    databus.mapApi = databus.apiUrl + 'api/map/';
+    databus.gameApi = databus.apiUrl + 'api/game/';
 }
 
 var loadMap = function(game) {
@@ -120,6 +136,7 @@ var loadGame = function(gid) {
             }
 
             databus.game = data;
+            databus.game.Server = databus.server;
 
             //首次加载游戏时要先加载地图
             if(databus.inited == false){
