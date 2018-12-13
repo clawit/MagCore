@@ -15,16 +15,6 @@ namespace MagCore.Server
     {
         public static void Main(string[] args)
         {
-            if (args.Any(g => g.Trim().ToLower().Contains("-thread=")))
-            {
-                string arg = args.SingleOrDefault(g => g.Trim().ToLower().Contains("-thread="));
-                string sThread = arg.ToLower().Trim().Replace("-thread=", string.Empty);
-                if (Int32.TryParse(sThread, out int thread))
-                {
-                    Core.Server.MaxThread = thread;
-                }
-            }
-
             BuildWebHost(args).Run();
         }
 
@@ -43,7 +33,7 @@ namespace MagCore.Server
                         }
                     }
                     else
-                        options.Listen(IPAddress.Any, 8000);
+                        options.Listen(IPAddress.Any, 6000);
 
                 })
                 .Build();

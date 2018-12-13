@@ -13,12 +13,6 @@ namespace MagCore.Monitor.Modules
         private static string _url = "http://106.75.33.221:6000/";
         //private static string _url = "http://localhost:6000/";
 
-        public static void SetUrl(string url)
-        {
-            _url = url;
-        }
-
-
         public static HttpClient CreateReq()
         {
             var client = new HttpClient() { BaseAddress = new Uri(_url) }; 

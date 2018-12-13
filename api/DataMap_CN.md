@@ -9,7 +9,7 @@
 - Id: 玩家Id
 - Name: 玩家昵称
 - Token: 玩家安全令牌(暂保留)
-- Energy: 玩家能量
+- Energy: 玩家能量(暂保留)
 - Color: 玩家颜色
 - State: 玩家状态
 - Index: 玩家标识号

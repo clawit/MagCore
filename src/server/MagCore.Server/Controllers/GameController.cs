@@ -38,13 +38,7 @@ namespace MagCore.Server.Controllers
             try
             {
                 var map = json.Map.ToString();
-                int thread = 0;
-                if (json.Thread != null)
-                {
-                    string num = json.Thread.ToString();
-                    Int32.TryParse(num, out thread);
-                }
-                var game = Core.Server.NewGame(map, thread);
+                var game = Core.Server.NewGame(map);
                 if (!string.IsNullOrEmpty(game))
                     return new ContentResult() { StatusCode = (int)HttpStatusCode.OK, Content = game };
                 else

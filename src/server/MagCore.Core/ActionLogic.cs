@@ -27,7 +27,7 @@ namespace MagCore.Core
         {
             if (target.State == CellState.Occupied)
             {
-                int time = 2000;
+                int time = 1000;
                 if (target.Owner != sender
                     && DateTime.Now > target.OccupiedTime)
                 {
@@ -37,15 +37,15 @@ namespace MagCore.Core
                     {
                         var duration = ts.Value.TotalSeconds;
                         if (duration > 60)
-                            time = 5000;
+                            time = 3000;
                         else if (duration > 30)
-                            time = 15000;
+                            time = 6000;
                         else if (duration > 15)
-                            time = 20000;
+                            time = 9000;
                         else if (duration > 5)
-                            time = 25000;
+                            time = 12000;
                         else
-                            time = 30000;
+                            time = 15000;
                     }
                 }
 
@@ -53,7 +53,7 @@ namespace MagCore.Core
                 return time;
             }
             else
-                return 2000;
+                return 1000;
         }
     }
 }

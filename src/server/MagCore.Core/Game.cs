@@ -16,8 +16,6 @@ namespace MagCore.Core
         private IMap _map { get; set; }
         public string Map => _map.Name;
 
-        public int ThreadNum = Server.MaxThread;
-
         private GameState _state;
         public GameState State { get { return _state; } }
 
@@ -25,12 +23,9 @@ namespace MagCore.Core
 
         internal Hashtable Players { get; } = new Hashtable();
 
-        internal string _MainThreadName { get; set; }
-        internal string _EnergyThreadName { get; set; }
+        internal int ThreadId { get; set; }
 
         internal DateTime CreateTime { get; set; } = DateTime.Now;
-
-        public byte[] GameCode = null;
 
         public string ToJson()
         {
@@ -56,18 +51,13 @@ namespace MagCore.Core
             return string.Format(json, Id, _map.Name, (int)State, players, _map.Cells());
         }
 
-        public Game(IMap map, int thread)
+        public Game(IMap map)
         {
             _state = GameState.Wait;
-            _map = map.Clone();
-
-            if (thread <= 0 || thread > Server.MaxThread)
-                ThreadNum = Server.MaxThread;
-            else
-                ThreadNum = thread;
+            _map = map.Clone();     
 
             Task.Factory.StartNew(() => {
-                _MainThreadName = "GameMainThread." + Thread.CurrentThread.ManagedThreadId.ToString();
+                ThreadId = Thread.CurrentThread.ManagedThreadId;
                 while (_state == GameState.Wait)
                 {
                     var ts = DateTime.Now - CreateTime;
@@ -113,34 +103,6 @@ namespace MagCore.Core
                 Thread.Sleep(10000);
                 Server.RemoveGame(Id);
             });
-
-            Task.Factory.StartNew( () => {
-                _EnergyThreadName = "GameEnergyThread." + Thread.CurrentThread.ManagedThreadId.ToString();
-                while (true)
-                {
-                    if (_state == GameState.Playing)
-                    {
-                        ProcessEnergy();
-                    }
-                    else if (_state >= GameState.Recycling)
-                    {
-                        break;
-                    }
-                    Thread.Sleep(1000);
-                }
-            });
-        }
-
-        private void ProcessEnergy()
-        {
-            foreach (Player player in Players.Values)
-            {
-                if (player.State == PlayerState.Playing)
-                {
-                    double inc = player.Cells.Count * 0.2;
-                    player.AddEnergy(inc);
-                }
-            }
         }
 
         private void ProcessAttack(Command cmd, IMap map)
@@ -151,12 +113,12 @@ namespace MagCore.Core
                 var cell = map.Locate(cmd.Target);
                 var player = Core.Players.Get(cmd.Sender);
                 
-                if (cell != null && cell.CanAttack(player, ThreadNum))
+                if (cell != null && cell.CanAttack(player))
                 {
                     time = ActionLogic.Calc(cmd.Action, cell, player);
                     Task<bool>.Factory.StartNew(() =>
                     {
-                        return cell.BeginChangeOwner(player, time, ThreadNum);
+                        return cell.BeginChangeOwner(player, time);
                     }).ContinueWith((task) =>
                     {
                         if (task.Result)

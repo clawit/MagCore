@@ -14,8 +14,6 @@ namespace MagCore.Core
     {
         private static string _path = string.Empty;
 
-        public static int MaxThread = 2;
-
         private static Hashtable _games = new Hashtable();
 
         private static Hashtable _maps = new Hashtable();
@@ -28,12 +26,12 @@ namespace MagCore.Core
             Console.WriteLine("MagCore Server Started.");
         }
 
-        public static string NewGame(string map, int thread)
+        public static string NewGame(string map)
         {
             map = map.Trim().ToLower();
             if (_maps.ContainsKey(map))
             {
-                var game = new Game(_maps[map] as IMap, thread);
+                var game = new Game(_maps[map] as IMap);
                 _games.Add(game.Id, game);
 
                 return game.Id;
