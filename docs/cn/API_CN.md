@@ -48,28 +48,28 @@ Y坐标相同的所有单元构成一行.
 ht<span></span>tp://api.magcore.clawit.com/
 
 ### 状态说明
-[数据结构概念及状态说明](/api/DataMap_CN.md)
+[数据结构概念及状态说明](/docs/cn/DataMap_CN.md)
 
 ### 游戏
-[创建游戏](/api/CreateGame_CN.md)
+[创建游戏](/docs/cn/CreateGame_CN.md)
 
-[获取游戏列表](/api/GameList_CN.md)
+[获取游戏列表](/docs/cn/GameList_CN.md)
 
-[加入游戏](/api/JoinGame_CN.md)
+[加入游戏](/docs/cn/JoinGame_CN.md)
 
-[开始游戏](/api/StartGame_CN.md)
+[开始游戏](/docs/cn/StartGame_CN.md)
 
-[获取游戏详细](/api/GetGame_CN.md)
+[获取游戏详细](/docs/cn/GetGame_CN.md)
 
 ### 玩家
-[创建新玩家](/api/CreatePlayer_CN.md)
+[创建新玩家](/docs/cn/CreatePlayer_CN.md)
 
-[获取玩家信息](/api/GetPlayer_CN.md)
+[获取玩家信息](/docs/cn/GetPlayer_CN.md)
 
 ### 地图
-[获取地图信息](/api/GetMap_CN.md)
+[获取地图信息](/docs/cn/GetMap_CN.md)
 
-[攻击单元](/api/Attack_CN.md)
+[攻击单元](/docs/cn/Attack_CN.md)
 
 
 ## SDK & Demo
