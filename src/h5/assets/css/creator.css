@@ -1,6 +1,10 @@
-body, html {
+  body, html {
     height: 100%;
     -webkit-tap-highlight-color: transparent;
+  }
+
+  :root {
+    --default-gap: 50px;
   }
 
   .creator-title {
@@ -9,6 +13,7 @@ body, html {
     color: #3cc51f;
     font-weight: 400;
     margin: 0 15%;
+    vertical-align: middle;
   }
     
   .creator-header {
@@ -18,7 +23,7 @@ body, html {
   .creator-page {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    z-index: 1
+    z-index: 1;
   }
   
   .creator-button {
@@ -26,7 +31,21 @@ body, html {
   }
 
   .creator-gap {
-    margin-top: 15px;
+    margin-top: var(--default-gap);
+  }
+
+  .creator-icon {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+  }
+
+  .creator-desc {
+    margin-top: 5px;
+    color: #888;
+    text-align: left;
+    font-size: 14px;
+    padding: 0 20px;
   }
 
   footer {
