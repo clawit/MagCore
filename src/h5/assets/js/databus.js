@@ -10,6 +10,8 @@ var databus = {
     game: undefined,
     players: new Array(),
 
+    server: 'api',
+
     icons: new Array()
 };
 
