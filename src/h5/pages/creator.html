@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>磁芯大战 - 创建</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  <meta name="description" content="A Magcore game for programmer">
+
+  <link rel="stylesheet" href="../assets/lib/weui.min.css">
+  <link rel="stylesheet" href="../assets/css/jquery-weui.css">
+  <link rel="stylesheet" href="../assets/css/creator.css">
+</head>
+
+<body ontouchstart>
+
+  <header class='creator-header'>
+    <h1 class="creator-title">
+      <img class="creator-icon" src="../assets/images/icon.png" alt="">
+      <span>创建</span>
+    </h1>
+  </header>
+
+  <div class="creator-page">
+    <div class="">
+      <p class="creator-desc">
+          本助手将自动加入一场战局。输入期望出征的玩家名，并点击加入战局，将自动带你进入一场战斗。
+        </p>
+        <p class="creator-desc">
+            将页面所显示PlayerId和GameId应用于你自己的程序。
+        </p>
+        <p class="creator-desc">
+            请注意保护自己的PlayerId不被其他玩家所知，由此助手前往的战局将记入积分。
+        </p>
+    </div>
+
+    <div class="weui-cells weui-cells_form">
+      <div class="weui-cells__title">人物</div>
+      <div class="weui-cell">
+        <div class="weui-cell__hd"><label for="" class="weui-label">玩家</label></div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" type="text" placeholder="输入出战玩家名">
+        </div>
+      </div>
+      <div class="weui-cell weui-cell_select weui-cell_select-after">
+        <div class="weui-cell__hd">
+          <label for="" class="weui-label">图标</label>
+        </div>
+        <div class="weui-cell__bd">
+          <select class="weui-select" name="color">
+            <option value="0">香蕉</option>
+            <option value="1">樱桃</option>
+            <option value="2">葡萄</option>
+            <option value="3">菜瓜</option>
+            <option value="4">柠檬</option>
+            <option value="5">桑葚</option>
+            <option value="6">生梨</option>
+            <option value="7">菠萝</option>
+            <option value="8">萝卜</option>
+            <option value="9">西瓜</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="weui-cells__title creator-gap">战局</div>
+      <div class="weui-cell weui-cell_select weui-cell_select-after">
+        <div class="weui-cell__hd">
+          <label for="" class="weui-label">地图</label>
+        </div>
+        <div class="weui-cell__bd">
+          <select class="weui-select" name="color">
+            <option value="RectPhone">手机</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="creator-button creator-gap">
+        <a href="javascript:;" class="weui-btn weui-btn_primary">加入战局</a>
+      </div>
+  </div>
+
+  <footer class="weui-footer">
+    <!-- <p class="weui-footer__links">
+        <a href="http://magcore.clawit.com" class="weui-footer__link">首页</a>
+      </p> -->
+    <p class="weui-footer__text creator-gap">Copyright © 2018 magcore.clawit.com</p>
+  </footer>
+
+
+  <script src="../assets/lib/jquery-2.1.4.js"></script>
+  <script src="../assets/lib/fastclick.js"></script>
+  <script src="../assets/js/jquery-weui.js"></script>
+  <script src="../assets/js/creator.js"></script>
+</body>
+
+</html>

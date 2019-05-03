@@ -1,0 +1,80 @@
+  body, html {
+    height: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :root {
+    --default-gap: 50px;
+  }
+
+  .creator-title {
+    text-align: center;
+    font-size: 24px;
+    color: #3cc51f;
+    font-weight: 400;
+    margin: 0 15%;
+    vertical-align: middle;
+  }
+    
+  .creator-header {
+    padding: 0;
+  }
+
+  .creator-page {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 1;
+  }
+  
+  .creator-button {
+    padding: 0 15px;
+  }
+
+  .creator-gap {
+    margin-top: var(--default-gap);
+  }
+
+  .creator-icon {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+  }
+
+  .creator-desc {
+    margin-top: 5px;
+    color: #888;
+    text-align: left;
+    font-size: 14px;
+    padding: 0 20px;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 12px;
+    padding: 0;
+  }
+  
+  footer a {
+    color: #999;
+    text-decoration: none;
+  }
+  
+  .weui-footer {
+    margin: 0;
+  }
+
+  .map ul {
+      width: 100%;
+      overflow: hidden;
+      white-space:nowrap;
+      
+  }
+  
+  .map ul li {
+    float: left;
+    list-style: none;
+  }
+
+  .map ul li img {
+      width: 100%;
+  }
