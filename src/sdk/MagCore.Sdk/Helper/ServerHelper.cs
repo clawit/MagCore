@@ -9,7 +9,7 @@ namespace MagCore.Sdk.Helper
     {
         public static void Initialize(string server)
         {
-            ApiReq._url = server;
+            ApiRequest._url = server;
         }
     }
 }

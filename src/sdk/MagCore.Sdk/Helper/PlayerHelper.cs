@@ -13,7 +13,7 @@ namespace MagCore.Sdk.Helper
         {
             string parms = string.Format("{{\"Name\":\"{0}\", \"Color\":{1}}}", name, color);
             var content = new StringContent(parms, Encoding.UTF8, "application/json");
-            var code = ApiReq.CreateReq()
+            var code = ApiRequest.CreateRequest()
                         .WithMethod("api/player", "post", content)
                         .GetResult(out string json);
             if (code == System.Net.HttpStatusCode.OK)
@@ -36,7 +36,7 @@ namespace MagCore.Sdk.Helper
 
         public static void GetPlayer(ref Player player)
         {
-            var code = ApiReq.CreateReq()
+            var code = ApiRequest.CreateRequest()
                         .WithMethod("api/player/" + player.Id, "get")
                         .GetResult(out string json);
             if (code == System.Net.HttpStatusCode.OK)

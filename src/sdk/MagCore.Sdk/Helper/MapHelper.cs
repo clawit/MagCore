@@ -11,7 +11,7 @@ namespace MagCore.Sdk.Helper
     {
         public static Map GetMap(string map)
         {
-            var code = ApiReq.CreateReq()
+            var code = ApiRequest.CreateRequest()
                         .WithMethod("api/map/" + map, "get")
                         .GetResult(out string json);
             if (code == System.Net.HttpStatusCode.OK)
@@ -47,7 +47,7 @@ namespace MagCore.Sdk.Helper
             string parms = string.Format("{{\"Game\":\"{0}\", \"Player\":\"{1}\", \"X\":{2}, \"Y\":{3}}}",
                             gameId, playerId, x, y);
             var content = new StringContent(parms, Encoding.UTF8, "application/json");
-            var code = ApiReq.CreateReq()
+            var code = ApiRequest.CreateRequest()
                         .WithMethod("api/cell", "put", content)
                         .GetResult(out string json);
         }

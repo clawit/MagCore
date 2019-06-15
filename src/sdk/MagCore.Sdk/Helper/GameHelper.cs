@@ -13,7 +13,7 @@ namespace MagCore.Sdk.Helper
         {
             string parms = string.Format("{{\"Map\":\"{0}\"}}", map);
             var content = new StringContent(parms, Encoding.UTF8, "application/json");
-            var code = ApiReq.CreateReq()
+            var code = ApiRequest.CreateRequest()
                         .WithMethod("api/game", "post", content)
                         .GetResult(out string json);
             if (code == System.Net.HttpStatusCode.OK)
@@ -26,7 +26,7 @@ namespace MagCore.Sdk.Helper
         {
             string parms = string.Format("{{\"Game\":\"{0}\", \"Player\":\"{1}\"}}", gameId, playerId);
             var content = new StringContent(parms, Encoding.UTF8, "application/json");
-            var code = ApiReq.CreateReq()
+            var code = ApiRequest.CreateRequest()
                         .WithMethod("api/game", "patch", content)
                         .GetResult(out string json);
             if (code == System.Net.HttpStatusCode.OK)
@@ -37,7 +37,7 @@ namespace MagCore.Sdk.Helper
 
         public static bool StartGame(string gameId)
         {
-            var code = ApiReq.CreateReq()
+            var code = ApiRequest.CreateRequest()
                         .WithMethod("api/game/" + gameId, "put")
                         .GetResult(out string json);
             if (code == System.Net.HttpStatusCode.OK)
@@ -48,7 +48,7 @@ namespace MagCore.Sdk.Helper
 
         public static bool GetGame(string gameId, ref Game game)
         {
-            var code = ApiReq.CreateReq()
+            var code = ApiRequest.CreateRequest()
                         .WithMethod("api/game/" + gameId, "get")
                         .GetResult(out string json);
             if (code == System.Net.HttpStatusCode.OK)
@@ -104,7 +104,7 @@ namespace MagCore.Sdk.Helper
 
         public static dynamic[] GameList()
         {
-            var code = ApiReq.CreateReq()
+            var code = ApiRequest.CreateRequest()
                         .WithMethod("api/game", "get")
                         .GetResult(out string json);
             if (code == System.Net.HttpStatusCode.OK)

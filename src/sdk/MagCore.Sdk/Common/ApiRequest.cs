@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace MagCore.Sdk.Common
 {
-    internal static class ApiReq
+    internal static class ApiRequest
     {
+        [ThreadStatic]
         internal static string _url = "http://localhost:6000/";
 
-        internal static HttpClient CreateReq()
+        internal static HttpClient CreateRequest()
         {
             var client = new HttpClient() { BaseAddress = new Uri(_url) };
             return client;
