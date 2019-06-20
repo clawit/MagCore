@@ -57,5 +57,23 @@ namespace MagCore.Sdk.Common
                 return HttpStatusCode.BadRequest;
             }
         }
+
+        internal static async Task<string> GetResultAsync(this Task<HttpResponseMessage> response)
+        {
+            try
+            {
+                var msg = response.Result;
+                if (msg.StatusCode == HttpStatusCode.OK)
+                {
+                    return await msg.Content.ReadAsStringAsync();
+                }
+                else
+                    throw new Exception(msg.StatusCode.ToString());
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
