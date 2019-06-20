@@ -77,9 +77,15 @@ namespace MagCore.Server.Controllers
 
         // Put api/game/5b4512fb673f4a638fe2907b7483c0ab - Start game
         [HttpPut("{id}")]
-        public ContentResult Put(string id)
+        public ContentResult Put(string id, [FromBody]dynamic json)
         {
-            if (Core.Server.StartGame(id))
+            string player = json.Player.ToString();
+            var game = Core.Server.Game(id);
+            if (game == null)
+                return new ContentResult() { StatusCode = (int)HttpStatusCode.NotFound };
+            else if (game.Owner != player)
+                return new ContentResult() { StatusCode = (int)HttpStatusCode.Forbidden };
+            else if(Core.Server.StartGame(id))
                 return new ContentResult() { StatusCode = (int)HttpStatusCode.OK };
             else
                 return new ContentResult() { StatusCode = (int)HttpStatusCode.Forbidden };

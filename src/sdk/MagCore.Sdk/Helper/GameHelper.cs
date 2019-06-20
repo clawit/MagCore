@@ -62,10 +62,13 @@ namespace MagCore.Sdk.Helper
             }
         }
 
-        public static bool StartGame(string gameId)
+        public static bool StartGame(string gameId, string playerId)
         {
+            string parms = string.Format("{{\"Player\":\"{0}\"}}", playerId);
+            var content = new StringContent(parms, Encoding.UTF8, "application/json");
+
             var code = ApiRequest.CreateRequest()
-                        .WithMethod("api/game/" + gameId, "put")
+                        .WithMethod("api/game/" + gameId, "put", content)
                         .GetResult(out string json);
             if (code == System.Net.HttpStatusCode.OK)
                 return true;
@@ -73,12 +76,15 @@ namespace MagCore.Sdk.Helper
                 return false;
         }
 
-        public static async Task<bool> StartGameAsync(string gameId)
+        public static async Task<bool> StartGameAsync(string gameId, string playerId)
         {
+            string parms = string.Format("{{\"Player\":\"{0}\"}}", playerId);
+            var content = new StringContent(parms, Encoding.UTF8, "application/json");
+
             try
             {
                 await ApiRequest.CreateRequest()
-                            .WithMethod("api/game/" + gameId, "put")
+                            .WithMethod("api/game/" + gameId, "put", content)
                             .GetResultAsync();
                 return true;
             }

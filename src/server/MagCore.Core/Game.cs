@@ -30,6 +30,8 @@ namespace MagCore.Core
 
         internal DateTime CreateTime { get; set; } = DateTime.Now;
 
+        public string Owner { get; set; }
+
         public byte[] GameCode = null;
 
         public string ToJson()
@@ -271,6 +273,11 @@ namespace MagCore.Core
         {
             player.State = PlayerState.Playing;
             this.Players.Add(player.Id, player);
+
+            if (string.IsNullOrEmpty(this._Owner))
+            {
+                this._Owner = player.Id;
+            }
 
             //alloc base
             while (true)
