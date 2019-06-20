@@ -274,9 +274,9 @@ namespace MagCore.Core
             player.State = PlayerState.Playing;
             this.Players.Add(player.Id, player);
 
-            if (string.IsNullOrEmpty(this._Owner))
+            if (string.IsNullOrEmpty(this.Owner))
             {
-                this._Owner = player.Id;
+                this.Owner = player.Id;
             }
 
             //alloc base
