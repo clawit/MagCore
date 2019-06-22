@@ -10,9 +10,25 @@ namespace MagCore.Sdk.Helper
 {
     public static class GameHelper
     {
-        public static string CreateGame(string map)
+        public static string CreateGame(string map, Dictionary<string, object> extraArgs = null)
         {
             string parms = string.Format("{{\"Map\":\"{0}\"}}", map);
+
+            if (extraArgs != null && extraArgs.Count > 0)
+            {
+                var jsonObj = DynamicJson.Parse(parms);
+
+                foreach (var key in extraArgs.Keys)
+                {
+                    if (key.ToLower().Trim() != "map")
+                    {
+                        jsonObj.TrySet(key, extraArgs[key]);
+                    }
+                }
+                parms = DynamicJson.Serialize(jsonObj);
+                Console.WriteLine($"Creating game with json {parms}");
+            }
+
             var content = new StringContent(parms, Encoding.UTF8, "application/json");
             var code = ApiRequest.CreateRequest()
                         .WithMethod("api/game", "post", content)
@@ -23,9 +39,24 @@ namespace MagCore.Sdk.Helper
                 return null;
         }
 
-        public static async Task<string> CreateGameAsync(string map)
+        public static async Task<string> CreateGameAsync(string map, Dictionary<string, object> extraArgs = null)
         {
             string parms = string.Format("{{\"Map\":\"{0}\"}}", map);
+            if (extraArgs != null && extraArgs.Count > 0)
+            {
+                var jsonObj = DynamicJson.Parse(parms);
+
+                foreach (var key in extraArgs.Keys)
+                {
+                    if (key.ToLower().Trim() != "map")
+                    {
+                        jsonObj.TrySet(key, extraArgs[key]);
+                    }
+                }
+                parms = DynamicJson.Serialize(jsonObj);
+                Console.WriteLine($"Creating game with json {parms}");
+            }
+
             var content = new StringContent(parms, Encoding.UTF8, "application/json");
             return await ApiRequest.CreateRequest()
                         .WithMethod("api/game", "post", content)
