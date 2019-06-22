@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,6 +32,8 @@ namespace MagCore.Core
         internal DateTime CreateTime { get; set; } = DateTime.Now;
 
         public string Owner { get; set; }
+
+        public string FeedbackUrl { get; set; }
 
         public byte[] GameCode = null;
 
@@ -110,7 +113,36 @@ namespace MagCore.Core
                     Console.WriteLine(ex.StackTrace);
                 }
             }).ContinueWith((task) => {
-                 //Recycling
+                //
+                if (!string.IsNullOrEmpty(FeedbackUrl))
+                {
+                    var client = new HttpClient();
+                    client.Timeout = TimeSpan.FromSeconds(10);
+                    string json = this.ToJson();
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    for (int i = 0; i < 3; i++)
+                    {
+                        try
+                        {
+                            var response = client.PostAsync(FeedbackUrl, content);
+                            if (response.Result.StatusCode != System.Net.HttpStatusCode.OK)
+                            {
+                                Thread.Sleep(3000);
+                                Console.WriteLine($"Failed to post game score to feedback[{FeedbackUrl}] for {i} time(s).");
+                                Console.WriteLine($"{json}");
+                            }
+                        }
+                        catch 
+                        {
+                            Thread.Sleep(3000);
+                            Console.WriteLine($"Failed to post game score to feedback[{FeedbackUrl}] for {i} time(s).");
+                            Console.WriteLine($"{json}");
+                            continue;
+                        }
+                    }
+                }
+                
+                //Recycling
                 _state = GameState.Recycling;
                 Thread.Sleep(10000);
                 Server.RemoveGame(Id);
@@ -197,17 +229,14 @@ namespace MagCore.Core
                     return;
                 }
             }
-            if (iCount == 1)
+            if (iCount == 1
+                || (DateTime.Now - CreateTime).TotalHours > 1)
             {
                 //win
                 _state = GameState.Done;
             }
 
-            var ts = DateTime.Now - CreateTime;
-            if (ts.TotalHours >= 5)
-            {
-                _state = GameState.Done;
-            }
+            
 
         }
 

@@ -28,12 +28,15 @@ namespace MagCore.Core
             Console.WriteLine("MagCore Server Started.");
         }
 
-        public static string NewGame(string map, int thread)
+        public static string NewGame(string map, int thread, string feedbackUrl)
         {
             map = map.Trim().ToLower();
             if (_maps.ContainsKey(map))
             {
                 var game = new Game(_maps[map] as IMap, thread);
+                if (!string.IsNullOrEmpty(feedbackUrl))
+                    game.FeedbackUrl = feedbackUrl;
+
                 _games.Add(game.Id, game);
 
                 return game.Id;
