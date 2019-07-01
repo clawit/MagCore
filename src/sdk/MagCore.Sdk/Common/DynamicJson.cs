@@ -405,7 +405,7 @@ namespace MagCore.Sdk.Common
                 : TryGet(xml.Element(binder.Name), out result);
         }
 
-        private bool TrySet(string name, object value)
+        internal bool TrySet(string name, object value)
         {
             var type = GetJsonType(value);
             var element = xml.Element(name);
