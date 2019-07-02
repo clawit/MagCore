@@ -25,7 +25,7 @@ namespace MagCore.Sdk.Helper
                         jsonObj.TrySet(key, extraArgs[key]);
                     }
                 }
-                parms = DynamicJson.Serialize(jsonObj);
+                parms = jsonObj.ToString();
                 Console.WriteLine($"Creating game with json {parms}");
             }
 
@@ -53,7 +53,7 @@ namespace MagCore.Sdk.Helper
                         jsonObj.TrySet(key, extraArgs[key]);
                     }
                 }
-                parms = DynamicJson.Serialize(jsonObj);
+                parms = jsonObj.ToString();
                 Console.WriteLine($"Creating game with json {parms}");
             }
 

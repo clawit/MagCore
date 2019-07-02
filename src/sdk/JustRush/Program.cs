@@ -1,6 +1,7 @@
 ﻿using MagCore.Sdk.Helper;
 using MagCore.Sdk.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace JustRush
         {
             string input = string.Empty;
 
-            ServerHelper.Initialize("http://106.75.33.221:6000/");
+            ServerHelper.Initialize("http://test.magcore.clawit.com/");
             //ServerHelper.Initialize("http://localhost:6000/");
 
             Player:
@@ -43,7 +44,9 @@ namespace JustRush
             {
                 map = MapHelper.GetMap("RectSmall");
                 game = new Game(map.Rows.Count, map.Rows[0].Count);
-                gameId = GameHelper.CreateGame("RectSmall");
+                var parms = new Dictionary<string, object>();
+                parms.Add("Feedback", "http://61.160.212.32/api/GameHelper/Finish");
+                gameId = GameHelper.CreateGame("RectPhone", parms);
 
             }
             else
