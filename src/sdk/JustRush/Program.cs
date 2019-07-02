@@ -42,11 +42,9 @@ namespace JustRush
             input = Console.ReadLine();
             if (input == "1")
             {
-                map = MapHelper.GetMap("RectSmall");
+                map = MapHelper.GetMap("RectPhone");
                 game = new Game(map.Rows.Count, map.Rows[0].Count);
-                var parms = new Dictionary<string, object>();
-                parms.Add("Feedback", "http://61.160.212.32/api/GameHelper/Finish");
-                gameId = GameHelper.CreateGame("RectPhone", parms);
+                gameId = GameHelper.CreateGame("RectPhone");
 
             }
             else
