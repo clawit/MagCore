@@ -33,5 +33,21 @@ namespace MagCore.Core
             else
                 return null;
         }
+
+        public static void RemovePlayers()
+        {
+            lock (All)
+            {
+                foreach (var id in All.Keys)
+                {
+                    var player = All[id];
+                    if (player.State == PlayerState.Leisure
+                        && (DateTime.Now - player.CreatedAt).TotalMinutes > 10 )
+                    {
+                        All.TryRemove(id, out player);
+                    }
+                }
+            }
+        }
     }
 }

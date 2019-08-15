@@ -77,7 +77,7 @@ namespace MagCore.Core
                 {
                     var ts = DateTime.Now - CreateTime;
 
-                    if (ts.TotalMinutes >= 11)
+                    if (ts.TotalMinutes > 10)
                     {
                         _state = GameState.Done;
                     }

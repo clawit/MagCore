@@ -11,6 +11,7 @@ namespace MagCore.Model
             Name = name;
             Color = color;
             Index = index;
+            CreatedAt = DateTime.Now;
         }
         public string Name { get; set; }
         
@@ -19,6 +20,8 @@ namespace MagCore.Model
         public string Token { get; set; } = Guid.NewGuid().ToString("N");
 
         public int ThreadLocker = 0;
+
+        public DateTime CreatedAt { get; set; }
 
         private double _energy = 10;
         public int Energy
@@ -57,6 +60,7 @@ namespace MagCore.Model
             ThreadLocker = 0;
             Bases = new Dictionary<string, Cell>();
             Cells = new Dictionary<string, Cell>();
+            CreatedAt = DateTime.Now;
         }
         public string ToJson()
         {
